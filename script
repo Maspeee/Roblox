@@ -2,6 +2,7 @@ local Players = game:GetService("Players")
 local Teleport = game:GetService("TeleportService")
 local RStorage = game:GetService("ReplicatedStorage")
 local Http = game:GetService("HttpService")
+local Core = game:GetService("CoreGui")
 
 local team = "Marines"
 
@@ -42,11 +43,18 @@ function listServers(cursor)
 	return Http:JSONDecode(game:HttpGet(servers .."&cursor=" ..cursor))
 end
 
+function onKick(child)
+	if child.Name == 'ErrorPrompt' and child:FindFirstChild('MessageArea') and child.MessageArea:FindFirstChild("ErrorFrame") then
+    	Teleport:Teleport(placeId)
+    end
+end
+
 --	Main	-------------------------------------
 
-task.wait(5)
 RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
 char = plr.Character or plr.CharacterAdded:Wait()
+
+Core.RobloxPromptGui.promptOverlay.ChildAdded:Connect(onKick)
 
 while true do
 	local chest = findNearest()
