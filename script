@@ -13,7 +13,7 @@ local api2 = "/servers/Public?sortOrder=Desc&limit=100"
 
 local placeId = 7449423635 --sea 3
 local jobId = game.JobId
-local servers = api1 ..placeId ..api2
+local servers = api1 ..tostring(placeId) ..api2
 
 function getDist(p1, p2)
     return (p1.Position -p2.Position).Magnitude
@@ -37,8 +37,9 @@ function findNearest()
 end
 
 function listServers(cursor)
-   local raw = game:HttpGet(_servers .. ((cursor and "&cursor="..cursor) or ""))
-   return Http:JSONDecode(raw)
+   if not cursor then return end
+      
+   return Http:JSONDecode(game:HttpGet(servers .."&cursor=" ..cursor))
 end
 
 --	Main	-------------------------------------
@@ -57,15 +58,15 @@ while true do
 end
 
 repeat
-   local servers = listServers(nextS)
-   for i, v in nextS, servers.data do
-       if v.playing < v.maxPlayers and v.id ~= _id then
-		queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
-           	local s, r = pcall(Teleport.TeleportToPlaceInstance, Teleport, _place, v.id, Player)
+   local serverList = listServers(nextS)
+   for i, v in nextS, serverList.data do
+      if v.playing < v.maxPlayers and v.id ~= _id then
+         queue_on_teleport(readfile("test.txt"))
+         local s, r = pcall(Teleport.TeleportToPlaceInstance, Teleport, placeId, v.id, plr)
 
-           	if s then break end
+         if s then break end
        end
    end
    
-   nextS = Servers.nextPageCursor
+   nextS = serverList.nextPageCursor
 until not nextS
