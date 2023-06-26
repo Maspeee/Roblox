@@ -6,7 +6,7 @@ local Http = game:GetService("HttpService")
 local team = "Marines"
 
 local plr = Players.LocalPlayer
-local char
+local char, nextS
 
 local api1 = "https://games.roblox.com/v1/games/"
 local api2 = "/servers/Public?sortOrder=Desc&limit=100"
@@ -48,13 +48,24 @@ char = plr.Character or plr.CharacterAdded:Wait()
 
 while true do
 	local chest = findNearest()
-
+	
 	if not chest then break end
 	if not char.Parent then break end
-
+	
 	char.PrimaryPart.CFrame = chest.CFrame
 	wait(.01)
 end
 
-queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
-Teleport:Teleport(2753915549)
+repeat
+   local servers = ListServers(Next)
+   for i, v in nextS, servers.data do
+       if v.playing < v.maxPlayers and v.id ~= _id then
+			queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
+           	local s, r = pcall(Teleport.TeleportToPlaceInstance, Teleport, _place, v.id, Player)
+
+           	if s then break end
+       end
+   end
+   
+   nextS = Servers.nextPageCursor
+until not nextS
