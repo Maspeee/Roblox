@@ -60,9 +60,9 @@ end
 repeat
    	local serverList = listServers(nextS)
 	
-   	for i, v in serverList do
+   	for i, v in serverList.data do
      	if v.playing < v.maxPlayers and v.id ~= _id then
-         	queue_on_teleport(readfile("test.txt"))
+         	queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
          	local s, r = pcall(Teleport.TeleportToPlaceInstance, Teleport, placeId, v.id, plr)
 
          	if s then break end
