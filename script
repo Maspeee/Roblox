@@ -54,7 +54,7 @@ while true do
 	if not char.Parent then break end
 	
 	char.PrimaryPart.CFrame = chest.CFrame
-	wait(.01)
+	wait(.1)
 end
 
 repeat
