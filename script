@@ -37,7 +37,7 @@ end
 
 RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
 char = plr.Character or plr.CharacterAdded:Wait()
---[[
+
 while true do
     local chest = findNearest()
 
@@ -47,6 +47,6 @@ while true do
     char.PrimaryPart.CFrame = chest.CFrame
     wait(.01)
 end
-]]
+
 queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
 Teleport:Teleport(2753915549)
