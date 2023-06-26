@@ -29,10 +29,7 @@ function findNearest()
     return nearest
 end
 
-if game.PlaceId ~= sea3 then
-    queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
-    
-else
+if game.PlaceId == sea3 then
     RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
     char = plr.Character or plr.CharacterAdded:Wait()
     
@@ -48,4 +45,7 @@ else
     
     queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
     Teleport:Teleport(2753915549)
+
+else
+    queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
 end
