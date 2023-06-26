@@ -47,6 +47,7 @@ function onKick(_plr)
     if _plr ~= plr then return end
 	if teleporting then return end
 
+    queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
 	Teleport:Teleport(game.PlaceId)
 end
 
