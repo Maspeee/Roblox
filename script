@@ -31,7 +31,7 @@ function findNearest()
 			elseif getDist(char.Head, v) < getDist(char.Head, nearest) then
 				nearest = v
 			end
-        end
+		end
 	end
 
     return nearest
@@ -48,11 +48,13 @@ function serverHop()
 	   	local serverList = listServers(nextS)
 		
 	   	for i, v in serverList.data do
-	     	if v.playing < v.maxPlayers and v.id ~= _id then
+	     	if v.playing < v.maxPlayers and v.id ~= jobId then
 				queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
-	         	Teleport:TeleportToPlaceInstance(placeId, v.id, plr)
-	
-	         	break
+				local success, _ = pcall(Teleport.TeleportToPlaceInstance, Teleport, placeId, v.id, plr)
+
+				if success then
+	         		break
+				end
 	       	end
 	   end
 	   
@@ -63,7 +65,7 @@ end
 function onKick(child)
 	if child.Name == 'ErrorPrompt' and child:FindFirstChild('MessageArea') and child.MessageArea:FindFirstChild("ErrorFrame") then
 		serverHop()
-    end
+	end
 end
 
 --	Main	-------------------------------------
