@@ -53,6 +53,7 @@ end
 
 --	Main	-------------------------------------
 
+task.wait(5)
 RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
 char = plr.Character or plr.CharacterAdded:Wait()
 Players.PlayerRemoving:Connect(onKick)
@@ -64,7 +65,7 @@ while true do
 	if not char.Parent then break end
 	
 	char.PrimaryPart.CFrame = chest.CFrame
-	wait(.1)
+	task.wait(.1)
 end
 
 repeat
