@@ -2,6 +2,13 @@ local Players = game:GetService("Players")
 local Teleport = game:GetService("TeleportService")
 local RStorage = game:GetService("ReplicatedStorage")
 
+local sea3 = 7449423635
+
+if game.PlaceId ~= sea3 then
+    queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
+    plr.OnTeleport:Wait()
+end
+
 local plr = Players.LocalPlayer
 local char
 
