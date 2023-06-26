@@ -7,6 +7,7 @@ local team = "Marines"
 
 local plr = Players.LocalPlayer
 local char, nextS
+local teleporting = false
 
 local api1 = "https://games.roblox.com/v1/games/"
 local api2 = "/servers/Public?sortOrder=Desc&limit=100"
@@ -44,6 +45,7 @@ end
 
 function onKick(_plr)
     if _plr ~= plr then return end
+	if teleporting then return end
 
 	Teleport:Teleport(game.PlaceId)
 end
@@ -69,10 +71,11 @@ repeat
 	
    	for i, v in serverList.data do
      	if v.playing < v.maxPlayers and v.id ~= _id then
-         	queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
-         	local s, r = pcall(Teleport.TeleportToPlaceInstance, Teleport, placeId, v.id, plr)
+			teleporting = true
 
-         	if s then break end
+         	queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
+         	Teleport:TeleportToPlaceInstance(placeId, v.id, plr)
+         	break
        	end
    end
    
