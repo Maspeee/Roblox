@@ -1,0 +1,45 @@
+local Players = game:GetService("Players")
+local Teleport = game:GetService("TeleportService")
+local RStorage = game:GetService("ReplicatedStorage")
+
+local plr = Players.LocalPlayer
+local char
+
+local team = "Marines"
+
+function getDist(p1, p2)
+    return (p1.Position -p2.Position).Magnitude
+end
+
+function findNearest()
+    local nearest
+
+    for _, v in workspace:GetChildren() do 
+        if v.Name == "Chest3" or v.Name == "Chest2" then
+            if not nearest then
+                nearest = v
+
+            elseif getDist(char.Head, v) < getDist(char.Head, nearest) then
+                nearest = v
+            end
+        end
+    end
+
+    return nearest
+end
+
+RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
+char = plr.Character or plr.CharacterAdded:Wait()
+--[[
+while true do
+    local chest = findNearest()
+
+    if not chest then break end
+    if not char.Parent then break end
+
+    char.PrimaryPart.CFrame = chest.CFrame
+    wait(.01)
+end
+]]
+queue_on_teleport()
+Teleport:Teleport(2753915549)
