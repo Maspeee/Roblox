@@ -42,10 +42,17 @@ function listServers(cursor)
 	return Http:JSONDecode(game:HttpGet(servers .."&cursor=" ..cursor))
 end
 
+function onKick(_plr)
+    if _plr ~= plr then return end
+
+	Teleport:Teleport(game.PlaceId)
+end
+
 --	Main	-------------------------------------
 
 RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
 char = plr.Character or plr.CharacterAdded:Wait()
+Players.PlayerRemoving:Connect(onKick)
 
 while true do
 	local chest = findNearest()
