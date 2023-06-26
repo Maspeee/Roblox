@@ -37,9 +37,9 @@ function findNearest()
 end
 
 function listServers(cursor)
-   if not cursor then return end
-      
-   return Http:JSONDecode(game:HttpGet(servers .."&cursor=" ..cursor))
+	cursor = cursor or ""
+
+	return Http:JSONDecode(game:HttpGet(servers .."&cursor=" ..cursor))
 end
 
 --	Main	-------------------------------------
@@ -58,14 +58,15 @@ while true do
 end
 
 repeat
-   local serverList = listServers(nextS)
-   for i, v in nextS, serverList.data do
-      if v.playing < v.maxPlayers and v.id ~= _id then
-         queue_on_teleport(readfile("test.txt"))
-         local s, r = pcall(Teleport.TeleportToPlaceInstance, Teleport, placeId, v.id, plr)
+   	local serverList = listServers(nextS)
+	print(serverList)
+   	for i, v in nextS do
+     	if v.playing < v.maxPlayers and v.id ~= _id then
+         	queue_on_teleport(readfile("test.txt"))
+         	local s, r = pcall(Teleport.TeleportToPlaceInstance, Teleport, placeId, v.id, plr)
 
-         if s then break end
-       end
+         	if s then break end
+       	end
    end
    
    nextS = serverList.nextPageCursor
