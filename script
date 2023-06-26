@@ -41,5 +41,5 @@ while true do
     wait(.01)
 end
 ]]
-queue_on_teleport()
+queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
 Teleport:Teleport(2753915549)
