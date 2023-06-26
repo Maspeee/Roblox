@@ -3,7 +3,7 @@ local Teleport = game:GetService("TeleportService")
 local RStorage = game:GetService("ReplicatedStorage")
 
 local plr = Players.LocalPlayer
-local char
+local char 
 
 local team = "Marines"
 
