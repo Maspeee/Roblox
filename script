@@ -43,10 +43,26 @@ function listServers(cursor)
 	return Http:JSONDecode(game:HttpGet(servers .."&cursor=" ..cursor))
 end
 
+function serverHop()
+	repeat
+	   	local serverList = listServers(nextS)
+		
+	   	for i, v in serverList.data do
+	     	if v.playing < v.maxPlayers and v.id ~= _id then
+				queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
+	         	Teleport:TeleportToPlaceInstance(placeId, v.id, plr)
+	
+	         	break
+	       	end
+	   end
+	   
+	   nextS = serverList.nextPageCursor
+	until not nextS
+end
+
 function onKick(child)
 	if child.Name == 'ErrorPrompt' and child:FindFirstChild('MessageArea') and child.MessageArea:FindFirstChild("ErrorFrame") then
-		queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
-    	Teleport:Teleport(placeId)
+		serverHop()
     end
 end
 
@@ -67,17 +83,4 @@ while true do
 	task.wait(.1)
 end
 
-repeat
-   	local serverList = listServers(nextS)
-	
-   	for i, v in serverList.data do
-     	if v.playing < v.maxPlayers and v.id ~= _id then
-			queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
-         	Teleport:TeleportToPlaceInstance(placeId, v.id, plr)
-
-         	break
-       	end
-   end
-   
-   nextS = serverList.nextPageCursor
-until not nextS
+serverHop()
