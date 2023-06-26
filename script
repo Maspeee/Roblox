@@ -59,8 +59,8 @@ end
 
 repeat
    	local serverList = listServers(nextS)
-	print(serverList)
-   	for i, v in nextS do
+	
+   	for i, v in serverList do
      	if v.playing < v.maxPlayers and v.id ~= _id then
          	queue_on_teleport(readfile("test.txt"))
          	local s, r = pcall(Teleport.TeleportToPlaceInstance, Teleport, placeId, v.id, plr)
