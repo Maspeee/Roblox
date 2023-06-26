@@ -45,6 +45,7 @@ end
 
 function onKick(child)
 	if child.Name == 'ErrorPrompt' and child:FindFirstChild('MessageArea') and child.MessageArea:FindFirstChild("ErrorFrame") then
+		queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
     	Teleport:Teleport(placeId)
     end
 end
