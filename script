@@ -3,16 +3,10 @@ local Teleport = game:GetService("TeleportService")
 local RStorage = game:GetService("ReplicatedStorage")
 
 local sea3 = 7449423635
-
-if game.PlaceId ~= sea3 then
-    queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
-    plr.OnTeleport:Wait()
-end
+local team = "Marines"
 
 local plr = Players.LocalPlayer
 local char
-
-local team = "Marines"
 
 function getDist(p1, p2)
     return (p1.Position -p2.Position).Magnitude
@@ -35,18 +29,23 @@ function findNearest()
     return nearest
 end
 
-RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
-char = plr.Character or plr.CharacterAdded:Wait()
-
-while true do
-    local chest = findNearest()
-
-    if not chest then break end
-    if not char.Parent then break end
-
-    char.PrimaryPart.CFrame = chest.CFrame
-    wait(.01)
+if game.PlaceId ~= sea3 then
+    queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
+    
+else
+    RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
+    char = plr.Character or plr.CharacterAdded:Wait()
+    
+    while true do
+        local chest = findNearest()
+    
+        if not chest then break end
+        if not char.Parent then break end
+    
+        char.PrimaryPart.CFrame = chest.CFrame
+        wait(.01)
+    end
+    
+    queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
+    Teleport:Teleport(2753915549)
 end
-
-queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
-Teleport:Teleport(2753915549)
