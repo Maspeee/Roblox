@@ -57,7 +57,7 @@ while true do
 end
 
 repeat
-   local servers = listServers(Next)
+   local servers = listServers(nextS)
    for i, v in nextS, servers.data do
        if v.playing < v.maxPlayers and v.id ~= _id then
 		queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
