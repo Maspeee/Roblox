@@ -43,20 +43,11 @@ function listServers(cursor)
 	return Http:JSONDecode(game:HttpGet(servers .."&cursor=" ..cursor))
 end
 
-function onKick(_plr)
-    if _plr ~= plr then return end
-	if teleporting then return end
-print("hey)
-    queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
-	Teleport:Teleport(game.PlaceId)
-end
-
 --	Main	-------------------------------------
 
 task.wait(5)
 RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
 char = plr.Character or plr.CharacterAdded:Wait()
-Players.PlayerRemoving:Connect(onKick)
 
 while true do
 	local chest = findNearest()
