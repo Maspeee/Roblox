@@ -23,15 +23,15 @@ function findNearest()
 	local nearest
 
 	for _, v in workspace:GetChildren() do 
-        if v.Name == "Chest3" or v.Name == "Chest2" then
-            if not nearest then
-                nearest = v
+		if v.Name == "Chest3" or v.Name == "Chest2" then
+			if not nearest then
+				nearest = v
 
-            elseif getDist(char.Head, v) < getDist(char.Head, nearest) then
-                nearest = v
-            end
+			elseif getDist(char.Head, v) < getDist(char.Head, nearest) then
+				nearest = v
+			end
         end
-    end
+	end
 
     return nearest
 end
