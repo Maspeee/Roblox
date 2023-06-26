@@ -7,7 +7,6 @@ local team = "Marines"
 
 local plr = Players.LocalPlayer
 local char, nextS
-local teleporting = false
 
 local api1 = "https://games.roblox.com/v1/games/"
 local api2 = "/servers/Public?sortOrder=Desc&limit=100"
@@ -64,13 +63,12 @@ repeat
 	
    	for i, v in serverList.data do
      	if v.playing < v.maxPlayers and v.id ~= _id then
-			teleporting = true
-
-         	queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
+			queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
          	Teleport:TeleportToPlaceInstance(placeId, v.id, plr)
+
          	break
        	end
    end
    
    nextS = serverList.nextPageCursor
-until not nextS or teleporting
+until not nextS
