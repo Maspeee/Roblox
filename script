@@ -82,4 +82,4 @@ repeat
    end
    
    nextS = serverList.nextPageCursor
-until not nextS and not teleporting
+until not nextS or teleporting
