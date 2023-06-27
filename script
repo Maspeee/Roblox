@@ -88,6 +88,6 @@ while true do
 	task.wait(.1)
 end
 
-if char then
+if char == plr.Character then
 	serverHop()
 end
