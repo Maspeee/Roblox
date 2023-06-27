@@ -5,6 +5,7 @@ local Http = game:GetService("HttpService")
 local Core = game:GetService("CoreGui")
 
 local team = "Marines"
+local maxPing = 600
 
 local plr = Players.LocalPlayer
 local char, nextS
@@ -49,7 +50,7 @@ function serverHop()
 
 		if serverList then
 		   	for i, v in serverList.data do
-		     	if v.playing < v.maxPlayers and v.id ~= jobId then
+		     	if v.playing < v.maxPlayers and v.id ~= jobId and v.ping < maxPing then
 					queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
 					local success, _ = pcall(Teleport.TeleportToPlaceInstance, Teleport, placeId, v.id, plr)
 	
