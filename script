@@ -88,6 +88,6 @@ while true do
 	task.wait(.1)
 end
 
-if char.Parent then
+if char then
 	serverHop()
 end
