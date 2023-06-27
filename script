@@ -53,7 +53,7 @@ function serverHop()
 		   	for _, v in serverList.data do
 		     	if v.playing < v.maxPlayers -1 and v.id ~= jobId and v.ping < maxPing then
 					queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
-					Teleport:TeleportToPlaceInstance(placeId, v.id)
+					Teleport:TeleportToPlaceInstance(placeId, v.id, plr)
 					teleporting = true 
 
 					break
@@ -67,8 +67,7 @@ end
 
 function onKick(child)
 	if child.Name == 'ErrorPrompt' and child:FindFirstChild('MessageArea') and child.MessageArea:FindFirstChild("ErrorFrame") then
-		queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
-		Teleport:Teleport(placeId)
+		serverHop()
 	end
 end
 
