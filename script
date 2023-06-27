@@ -47,12 +47,13 @@ end
 function serverHop()
 	repeat
 	   	local serverList = listServers(nextS)
+		local success = false
 
 		if serverList then
 		   	for i, v in serverList.data do
 		     	if v.playing < v.maxPlayers and v.id ~= jobId and v.ping < maxPing then
 					queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
-					local success, _ = pcall(Teleport.TeleportToPlaceInstance, Teleport, placeId, v.id, plr)
+					local success = pcall(Teleport.TeleportToPlaceInstance, Teleport, placeId, v.id, plr)
 	
 					if success then
 		         		break
@@ -60,14 +61,20 @@ function serverHop()
 		       	end
 		   	end
 		end
-	   
+	   	
 	   	nextS = serverList.nextPageCursor
-	until not nextS
+	until not nextS or success
 end
 
 function onKick(child)
 	if child.Name == 'ErrorPrompt' and child:FindFirstChild('MessageArea') and child.MessageArea:FindFirstChild("ErrorFrame") then
-		serverHop()
+		local success = false
+
+		while not success do
+			queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
+			success = pcall(Teleport.Teleport, Teleport, placeId)
+			task.wait()
+		end
 	end
 end
 
@@ -88,6 +95,6 @@ while true do
 	task.wait(.1)
 end
 
-if char == plr.Character then
+if not char.Parent then
 	serverHop()
 end
