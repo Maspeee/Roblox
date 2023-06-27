@@ -53,7 +53,7 @@ function serverHop()
 		   	for i, v in serverList.data do
 		     	if v.playing < v.maxPlayers and v.id ~= jobId and v.ping < maxPing then
 					queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
-					local success = pcall(Teleport.TeleportToPlaceInstance, Teleport, placeId, v.id, plr)
+					success = pcall(Teleport.TeleportToPlaceInstance, Teleport, placeId, v.id, plr)
 	
 					if success then
 		         		break
