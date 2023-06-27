@@ -46,19 +46,21 @@ end
 function serverHop()
 	repeat
 	   	local serverList = listServers(nextS)
-		
-	   	for i, v in serverList.data do
-	     	if v.playing < v.maxPlayers and v.id ~= jobId then
-				queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
-				local success, _ = pcall(Teleport.TeleportToPlaceInstance, Teleport, placeId, v.id, plr)
 
-				if success then
-	         		break
-				end
-	       	end
-	   end
+		if serverList then
+		   	for i, v in serverList.data do
+		     	if v.playing < v.maxPlayers and v.id ~= jobId then
+					queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
+					local success, _ = pcall(Teleport.TeleportToPlaceInstance, Teleport, placeId, v.id, plr)
+	
+					if success then
+		         		break
+					end
+		       	end
+		   	end
+		end
 	   
-	   nextS = serverList.nextPageCursor
+	   	nextS = serverList.nextPageCursor
 	until not nextS
 end
 
