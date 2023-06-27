@@ -51,7 +51,7 @@ function serverHop()
 
 		if serverList then
 		   	for _, v in serverList.data do
-		     	if v.playing < v.maxPlayers -1 and v.id ~= jobId and v.ping < maxPing then
+		     	if v.playing < v.maxPlayers and v.id ~= jobId and v.ping < maxPing then
 					queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
 					Teleport:TeleportToPlaceInstance(placeId, v.id, plr)
 					teleporting = true 
