@@ -53,6 +53,7 @@ function serverHop()
 		end
 	   	
 	   	nextCursor = servers.nextPageCursor
+		task.wait()
 	until not nextCursor
 end
 
