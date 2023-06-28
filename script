@@ -36,7 +36,7 @@ function findNearest()
 end
 
 function listServers(cursor)
-	return Http:JSONDecode(game:HttpGet(api ..(cursor and "&cursor=" ..cursor) or ""))
+	return Http:JSONDecode(game:HttpGet(api ..((cursor and "&cursor=" ..cursor) or "")))
 end
 
 function serverHop()
