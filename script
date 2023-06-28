@@ -54,7 +54,7 @@ function serverHop()
 			end
 		end
 	   	
-	   	nextCursor = serverList.nextPageCursor
+	   	nextCursor = servers.nextPageCursor
 	until not nextCursor
 end
 
