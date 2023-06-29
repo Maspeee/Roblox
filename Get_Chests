@@ -23,6 +23,18 @@ local api = "https://games.roblox.com/v1/games/" ..tostring(placeId) .."/servers
 --	Functions	----------------------------------
 --------------------------------------------------
 
+function log(content)
+    local file = pcall(readfile, "Logs.txt")
+    content = os.date() .."\n\t"  ..content .."\n"
+
+    if file then
+        appendfile("Logs.txt", content)
+
+    else
+        writefile("Logs.txt", content)
+    end
+end
+
 function getDist(p1, p2)
     return (p1.Position -p2.Position).Magnitude
 end
@@ -45,13 +57,12 @@ function findNearest()
 end
 
 function listServers(cursor)
-	local success, ret
+	local ret
 	cursor = (cursor and "&cursor=" ..cursor) or ""
 
 	repeat
-		success, ret = pcall(Http.JSONDecode, Http, game:HttpGet(api ..cursor))
-		task.wait()
-	until success and ret and ret.data
+		_, ret = pcall(Http.JSONDecode, Http, game:HttpGet(api ..cursor))
+	until ret and ret.data
 	
 	return ret
 end
@@ -75,25 +86,18 @@ end
 function onKick(child)
 	if child.Name == "ErrorPrompt" then
 		local success
+		log("Kicked")
 
 		repeat
 			queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Blox_Fruits/main/Get_Chests"))
 			success = pcall(Teleport.TeleportToPlaceInstance, Teleport, placeId, jobId)
 		until success
+
+		log("Reconnecting")
 	end
 end
 
-function log(content)
-    local file = pcall(readfile, "Logs.txt")
-    content = os.date() .."\n\t"  ..content .."\n"
 
-    if file then
-        appendfile("Logs.txt", content)
-
-    else
-        writefile("Logs.txt", content)
-    end
-end
 
 --	Main	--------------------------------------
 --------------------------------------------------
