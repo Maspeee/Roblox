@@ -42,7 +42,7 @@ end
 function serverHop()
 	repeat
 	   	local servers = listServers(nextCursor)
-
+		print(servers)
 		for _, s in servers.data do
 			if s.playing < s.maxPlayers and s.id ~= jobId and s.ping < maxPing then
 				queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
@@ -59,7 +59,7 @@ function serverHop()
 end
 
 function onKick(child)
-	if child.Name == 'ErrorPrompt' then
+	if child.Name == "ErrorPrompt" then
 		serverHop()
 	end
 end
