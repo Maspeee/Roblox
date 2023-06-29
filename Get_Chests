@@ -57,23 +57,19 @@ function listServers(cursor)
 end
 
 function serverHop()
-	local success
-	
 	repeat
 	   	local servers = listServers(nextCursor)
 
 		for _, s in servers.data do
 			if s.playing < s.maxPlayers and s.id ~= jobId and s.ping < maxPing then
 				queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Blox_Fruits/main/Get_Chests"))
-				success = pcall(Teleport.TeleportToPlaceInstance, Teleport, placeId, s.id)
-
-				if success then break end
+				pcall(Teleport.TeleportToPlaceInstance, Teleport, placeId, s.id)
 			end
 		end
 	   	
 	   	nextCursor = servers.nextPageCursor
 		task.wait()
-	until success or not nextCursor
+	until not nextCursor
 end
 
 function onKick(child)
