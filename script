@@ -47,6 +47,7 @@ function serverHop()
 			if s.playing < s.maxPlayers and s.id ~= jobId and s.ping < maxPing then
 				queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
 				Teleport:TeleportToPlaceInstance(placeId, s.id)
+				kickConnection:Disconnect()
 
 				break
 			end
@@ -60,7 +61,6 @@ end
 function onKick(child)
 	if child.Name == 'ErrorPrompt' then
 		serverHop()
-		kickConnection:Disconnect()
 	end
 end
 
