@@ -110,7 +110,7 @@ while true do
 	local chest = findNearest()
 	
 	if not chest then break end
-	if not char.Parent then break end
+	if not plr.PlayerGui.Main:FindFirstChild("ChooseTeam") then break end
 	
 	char.PrimaryPart.CFrame = chest.CFrame
 	task.wait(.1)
@@ -120,6 +120,6 @@ log("Cash: " ..plr.Data.Beli.Value)
 
 --------------------------------------------------
 
-if char.Parent then
+if plr.PlayerGui.Main:FindFirstChild("ChooseTeam") then
 	serverHop()
 end
