@@ -51,7 +51,7 @@ function listServers(cursor)
 	repeat
 		success, ret = pcall(Http.JSONDecode, Http, game:HttpGet(api ..cursor))
 		task.wait()
-	until success and ret
+	until success and ret and ret.data
 	
 	return ret
 end
