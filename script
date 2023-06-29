@@ -8,7 +8,7 @@ local team = "Marines"
 local maxPing = 500
 
 local plr = Players.LocalPlayer
-local char, nextCursor
+local char, nextCursor, kickConnection
 
 local placeId = 7449423635 --sea 3
 local jobId = game.JobId
@@ -60,13 +60,14 @@ end
 function onKick(child)
 	if child.Name == 'ErrorPrompt' then
 		serverHop()
+		kickConnection:Disconnect()
 	end
 end
 
 --	Main	-------------------------------------
 
 RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
-Core.RobloxPromptGui.promptOverlay.ChildAdded:Connect(onKick)
+kickConnection = Core.RobloxPromptGui.promptOverlay.ChildAdded:Connect(onKick)
 
 char = plr.Character or plr.CharacterAdded:Wait()
 
