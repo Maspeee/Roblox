@@ -39,11 +39,11 @@ function listServers(cursor)
 	local success, ret
 	cursor = (cursor and "&cursor=" ..cursor) or ""
 
-	while not success do
+	repeat
 		success, ret = pcall(Http.JSONDecode, Http, game:HttpGet(api ..cursor))
 		task.wait()
-	end
-
+	until success
+	
 	return ret
 end
 
@@ -52,7 +52,7 @@ function serverHop()
 	
 	repeat
 	   	local servers = listServers(nextCursor)
-		
+		print(servers)
 		for _, s in servers.data do
 			if s.playing < s.maxPlayers and s.id ~= jobId and s.ping < maxPing then
 				queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
@@ -78,9 +78,7 @@ end
 
 RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
 Core.RobloxPromptGui.promptOverlay.ChildAdded:Connect(onKick)
-
 char = plr.Character or plr.CharacterAdded:Wait()
-task.wait(5)
 
 while true do
 	local chest = findNearest()
