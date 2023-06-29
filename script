@@ -37,9 +37,10 @@ end
 
 function listServers(cursor)
 	local success, ret
+	cursor = (cursor and "&cursor=" ..cursor) or ""
 
 	while not success do
-		success, ret = pcall(Http.JSONDecode, Http, game:HttpGet(api ..((cursor and "&cursor=" ..cursor) or "")))
+		success, ret = pcall(Http.JSONDecode, Http, game:HttpGet(api ..cursor))
 		task.wait()
 	end
 
