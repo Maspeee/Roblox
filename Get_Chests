@@ -1,8 +1,14 @@
+--	Services	----------------------------------
+--------------------------------------------------
+
 local Players = game:GetService("Players")
 local Teleport = game:GetService("TeleportService")
 local RStorage = game:GetService("ReplicatedStorage")
 local Http = game:GetService("HttpService")
 local Core = game:GetService("CoreGui")
+
+--	Variables	----------------------------------
+--------------------------------------------------
 
 local team = "Marines"
 local maxPing = 500
@@ -13,6 +19,9 @@ local char, nextCursor
 local placeId = 7449423635 --sea 3
 local jobId = game.JobId
 local api = "https://games.roblox.com/v1/games/" ..tostring(placeId) .."/servers/Public?sortOrder=Desc&limit=100"
+
+--	Functions	----------------------------------
+--------------------------------------------------
 
 function getDist(p1, p2)
     return (p1.Position -p2.Position).Magnitude
@@ -78,7 +87,8 @@ function onKick(child)
 	end
 end
 
---	Main	-------------------------------------
+--	Main	--------------------------------------
+--------------------------------------------------
 
 RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
 Core.RobloxPromptGui.promptOverlay.ChildAdded:Connect(onKick)
@@ -93,6 +103,8 @@ while true do
 	char.PrimaryPart.CFrame = chest.CFrame
 	task.wait(.1)
 end
+
+--------------------------------------------------
 
 if char.Parent then
 	serverHop()
