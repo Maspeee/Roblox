@@ -73,7 +73,7 @@ function onKick(child)
 
 		repeat
 			queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
-			pcall(Teleport.TeleportToPlaceInstance, Teleport, placeId, jobId)
+			success = pcall(Teleport.TeleportToPlaceInstance, Teleport, placeId, jobId)
 		until success
 	end
 end
