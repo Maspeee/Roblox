@@ -55,7 +55,7 @@ function serverHop()
 
 		for _, s in servers.data do
 			if s.playing < s.maxPlayers and s.id ~= jobId and s.ping < maxPing then
-				queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
+				queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Blox_Fruits/main/Get_Chests"))
 				success = pcall(Teleport.TeleportToPlaceInstance, Teleport, placeId, s.id)
 
 				if success then break end
@@ -72,7 +72,7 @@ function onKick(child)
 		local success
 
 		repeat
-			queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
+			queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Blox_Fruits/main/Get_Chests"))
 			success = pcall(Teleport.TeleportToPlaceInstance, Teleport, placeId, jobId)
 		until success
 	end
