@@ -43,7 +43,7 @@ function listServers(cursor)
 		success, ret = pcall(Http.JSONDecode, Http, game:HttpGet(api ..cursor))
 		task.wait()
 	until success and ret
-	
+	print(ret)
 	return ret
 end
 
@@ -69,8 +69,12 @@ end
 
 function onKick(child)
 	if child.Name == "ErrorPrompt" then
-		queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
-		Teleport:TeleportToPlaceInstance(placeId, jobId)
+		local success
+
+		repeat
+			queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
+			pcall(Teleport.TeleportToPlaceInstance, Teleport, placeId, jobId)
+		until success
 	end
 end
 
