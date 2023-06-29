@@ -70,6 +70,7 @@ RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
 
 kickConnection = Core.RobloxPromptGui.promptOverlay.ChildAdded:Connect(onKick)
 char = plr.Character or plr.CharacterAdded:Wait()
+task.wait(5)
 
 while true do
 	local chest = findNearest()
