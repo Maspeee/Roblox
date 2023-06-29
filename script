@@ -8,7 +8,7 @@ local team = "Marines"
 local maxPing = 500
 
 local plr = Players.LocalPlayer
-local char, nextCursor, kickConnection
+local char, nextCursor
 
 local placeId = 7449423635 --sea 3
 local jobId = game.JobId
@@ -47,7 +47,6 @@ function serverHop()
 			if s.playing < s.maxPlayers and s.id ~= jobId and s.ping < maxPing then
 				queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/GetChests/main/script"))
 				Teleport:TeleportToPlaceInstance(placeId, s.id)
-				kickConnection:Disconnect()
 
 				break
 			end
@@ -67,8 +66,8 @@ end
 --	Main	-------------------------------------
 
 RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
+Core.RobloxPromptGui.promptOverlay.ChildAdded:Connect(onKick)
 
-kickConnection = Core.RobloxPromptGui.promptOverlay.ChildAdded:Connect(onKick)
 char = plr.Character or plr.CharacterAdded:Wait()
 task.wait(5)
 
