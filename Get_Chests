@@ -87,6 +87,18 @@ function onKick(child)
 	end
 end
 
+function log(content)
+    local file = pcall(readfile, "Logs.txt")
+    content = os.date() .."\n\t"  ..content .."\n"
+
+    if file then
+        appendfile("Logs.txt", content)
+
+    else
+        writefile("Logs.txt", content)
+    end
+end
+
 --	Main	--------------------------------------
 --------------------------------------------------
 
@@ -103,6 +115,8 @@ while true do
 	char.PrimaryPart.CFrame = chest.CFrame
 	task.wait(.1)
 end
+
+log("Cash: " ..plr.Data.Beli.Value)
 
 --------------------------------------------------
 
