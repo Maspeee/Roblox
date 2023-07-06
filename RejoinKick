@@ -10,8 +10,8 @@ local Core = game:GetService("CoreGui")
 
 local plr = Players.LocalPlayer
 
-local placeId = workspace.PlaceId
-local jobId = workspace.JobId
+local placeId = game.PlaceId
+local jobId = game.JobId
 
 --	Main  ----------------------------------------
 --------------------------------------------------
