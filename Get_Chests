@@ -1,4 +1,4 @@
---	Services	----------------------------------
+--	Services  ------------------------------------
 --------------------------------------------------
 
 local Players = game:GetService("Players")
@@ -7,7 +7,7 @@ local RStorage = game:GetService("ReplicatedStorage")
 local Http = game:GetService("HttpService")
 local Core = game:GetService("CoreGui")
 
---	Variables	----------------------------------
+--	Variables  -----------------------------------
 --------------------------------------------------
 
 local team = "Marines"
@@ -20,20 +20,8 @@ local placeId = 7449423635 --sea 3
 local jobId = game.JobId
 local api = "https://games.roblox.com/v1/games/" ..tostring(placeId) .."/servers/Public?sortOrder=Desc&limit=100"
 
---	Functions	----------------------------------
+--	Functions  -----------------------------------
 --------------------------------------------------
-
-function log(content)
-    local file = pcall(readfile, "Logs.txt")
-    content = os.date() .."\n\t"  ..content .."\n"
-
-    if file then
-        appendfile("Logs.txt", content)
-
-    else
-        writefile("Logs.txt", content)
-    end
-end
 
 function getDist(p1, p2)
     return (p1.Position -p2.Position).Magnitude
@@ -56,51 +44,26 @@ function findNearest()
     return nearest
 end
 
-function listServers(cursor)
-	local ret
-	cursor = (cursor and "&cursor=" ..cursor) or ""
-
-	repeat
-		_, ret = pcall(Http.JSONDecode, Http, game:HttpGet(api ..cursor))
-	until ret and ret.data
-	
-	return ret
+function collect()
+	while plr.PlayerGui.Main:FindFirstChild("ChooseTeam") do
+		char = plr.Character
+		local chest = findNearest()
+		
+		if not chest then break end
+		
+		char:PivotTo(chest.CFrame)
+		task.wait(.1)
+	end
 end
 
-function serverHop()
-	repeat
-	   	local servers = listServers(nextCursor)
-
-		for _, s in servers.data do
-			if s.playing < s.maxPlayers and s.id ~= jobId and s.ping < maxPing then
-				queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Blox_Fruits/main/Get_Chests"))
-				pcall(TpS.TeleportToPlaceInstance, TpS, placeId, s.id)
-			end
-		end
-	   	
-	   	nextCursor = servers.nextPageCursor
-		task.wait()
-	until not nextCursor
-end
-
---	Main	--------------------------------------
+--	Main  ----------------------------------------
 --------------------------------------------------
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/RejoinKick"))()
-
 RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
 
-while true do
-	char = plr.Character
-	local chest = findNearest()
-	
-	if not chest then break end
-	if not plr.PlayerGui.Main:FindFirstChild("ChooseTeam") then break end
-	
-	char:PivotTo(chest.CFrame)
-	task.wait(.1)
-end
+collect()
 
 if plr.PlayerGui.Main:FindFirstChild("ChooseTeam") then
-	serverHop()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
 end
