@@ -4,6 +4,12 @@
 local Players = game:GetService("Players")
 local RStorage = game:GetService("ReplicatedStorage")
 
+--	Configuration  -------------------------------
+--------------------------------------------------
+
+local team = "Marines"
+local goal = "Winter Sky"
+
 --	Variables  -----------------------------------
 --------------------------------------------------
 
@@ -16,10 +22,10 @@ local serverHop = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mas
 --------------------------------------------------
 
 function snipe()
-    commF:InvokeServer("SetTeam", getgenv().team)
+    commF:InvokeServer("SetTeam", team)
     local color = commF:InvokeServer("ColorsDealer", "1")
     
-    if color == getgenv().goal then
+    if color == goal then
         commF:InvokeServer("ColorsDealer", "2")
         print("Bought: ", color)
         
