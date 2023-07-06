@@ -61,7 +61,6 @@ end
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/RejoinKick"))()
 RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
-
 collect()
 
 if plr.PlayerGui.Main:FindFirstChild("ChooseTeam") then
