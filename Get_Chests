@@ -14,7 +14,6 @@ local plr = Players.LocalPlayer
 local char
 
 local serverHop = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/RejoinKick"))()
 
 --	Functions  -----------------------------------
 --------------------------------------------------
@@ -40,7 +39,8 @@ function findNearest()
     return nearest
 end
 
-function collect()
+function collect() print(getgenv().team)
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/RejoinKick"))()
 	RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", getgenv().team)
 	
 	while plr.PlayerGui.Main:FindFirstChild("ChooseTeam") do
