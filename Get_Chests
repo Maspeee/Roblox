@@ -20,6 +20,9 @@ local placeId = 7449423635 --sea 3
 local jobId = game.JobId
 local api = "https://games.roblox.com/v1/games/" ..tostring(placeId) .."/servers/Public?sortOrder=Desc&limit=100"
 
+local serverHop = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/RejoinKick"))()
+
 --	Functions  -----------------------------------
 --------------------------------------------------
 
@@ -59,10 +62,9 @@ end
 --	Main  ----------------------------------------
 --------------------------------------------------
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/RejoinKick"))()
 RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
 collect()
 
 if plr.PlayerGui.Main:FindFirstChild("ChooseTeam") then
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
+	serverHop(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/BloxFruits/Get_Chests"))
 end
