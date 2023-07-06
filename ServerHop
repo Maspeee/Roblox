@@ -27,7 +27,7 @@ function listServers(cursor)
 	return ret
 end
 
-function serverHop(queueLink)
+function serverHop(queueLink)	print("Hopping")
 	local success
 	
 	repeat
