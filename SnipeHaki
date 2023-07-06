@@ -11,7 +11,6 @@ local plr = Players.LocalPlayer
 local commF = RStorage:WaitForChild("Remotes").CommF_
 
 local serverHop = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/RejoinKick"))()
 
 --	Functions  -----------------------------------
 --------------------------------------------------
