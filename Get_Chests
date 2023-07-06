@@ -40,8 +40,8 @@ function findNearest()
     return nearest
 end
 
-function collect(team)
-	RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
+function collect()
+	RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", getgenv().team)
 	
 	while plr.PlayerGui.Main:FindFirstChild("ChooseTeam") do
 		char = plr.Character
@@ -61,4 +61,4 @@ end
 --	Main  ----------------------------------------
 --------------------------------------------------
 
-return collect
+collect()
