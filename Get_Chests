@@ -7,6 +7,11 @@ local RStorage = game:GetService("ReplicatedStorage")
 local Http = game:GetService("HttpService")
 local Core = game:GetService("CoreGui")
 
+--	Configuration  -------------------------------
+--------------------------------------------------
+
+local team = "Marines"
+
 --	Variables  -----------------------------------
 --------------------------------------------------
 
@@ -41,7 +46,7 @@ end
 
 function collect()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/RejoinKick"))()
-	RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", getgenv().team)
+	RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
 	
 	while plr.PlayerGui.Main:FindFirstChild("ChooseTeam") do
 		char = plr.Character
