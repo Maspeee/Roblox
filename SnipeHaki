@@ -24,7 +24,7 @@ function snipe(goal)
     if color == goal then
         remote:InvokeServer("ColorsDealer", "2")
     else
-        serverHop()
+        serverHop("https://raw.githubusercontent.com/Maspeee/Roblox/BloxFruits/SnipeHaki")
     end
 end
 
