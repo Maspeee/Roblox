@@ -10,8 +10,6 @@ local Core = game:GetService("CoreGui")
 --	Variables  -----------------------------------
 --------------------------------------------------
 
-local team = "Marines"
-
 local plr = Players.LocalPlayer
 local char
 
@@ -42,7 +40,9 @@ function findNearest()
     return nearest
 end
 
-function collect()
+function collect(team)
+	RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
+	
 	while plr.PlayerGui.Main:FindFirstChild("ChooseTeam") do
 		char = plr.Character
 		local chest = findNearest()
@@ -54,12 +54,11 @@ function collect()
 	end
 
 	if plr.PlayerGui.Main:FindFirstChild("ChooseTeam") then
-		serverHop("https://raw.githubusercontent.com/Maspeee/Roblox/BloxFruits/Get_Chests")		--link to queue
+		serverHop("https://raw.githubusercontent.com/Maspeee/Roblox/BloxFruits/Get_Chests")
 	end
 end
 
 --	Main  ----------------------------------------
 --------------------------------------------------
 
-RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
-collect()
+return collect
