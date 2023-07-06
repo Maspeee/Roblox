@@ -2,7 +2,7 @@
 --------------------------------------------------
 
 local Players = game:GetService("Players")
-local Teleport = game:GetService("TeleportService")
+local TpS = game:GetService("TeleportService")
 local Core = game:GetService("CoreGui")
 
 --	Variables  -----------------------------------
@@ -18,8 +18,13 @@ local jobId = workspace.JobId
 
 function left(_plr)
     if plr ~= _plr then return end
-
+    if not Core.RobloxPromptGui.promptOverlay:WaitForChild("ErrorPrompt", 5) then return end
     
+    local success
+
+    while not success do
+        success = pcall(TpS.TeleportToPlaceInstance, TpS, placeId, jobId)
+    end
 end
 
 --------------------------------------------------
