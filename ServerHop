@@ -1,0 +1,49 @@
+--	Services  ------------------------------------
+--------------------------------------------------
+
+local Tps = game:GetService("TeleportService")
+local Http = game:GetService("HttpService")
+
+--	Variables ------------------------------------
+--------------------------------------------------
+
+local maxPing = 500
+
+local placeId = game.PlaceId
+local jobId = game.JobId
+local api = "https://games.roblox.com/v1/games/" ..tostring(placeId) .."/servers/Public?sortOrder=Desc&limit=100"
+
+--	Functions  -----------------------------------
+--------------------------------------------------
+
+function listServers(cursor)
+	cursor = (cursor and "&cursor=" ..cursor) or ""
+    local ret
+
+	repeat
+		_, ret = pcall(Http.JSONDecode, Http, game:HttpGet(api ..cursor))
+	until ret and ret.data
+	
+	return ret
+end
+
+function serverHop()
+	repeat
+	   	local servers = listServers(nextCursor)
+
+		for _, s in servers.data do
+			if s.playing < s.maxPlayers and s.id ~= jobId and s.ping < maxPing then
+				queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Blox_Fruits/main/Get_Chests"))
+				pcall(TpS.TeleportToPlaceInstance, TpS, placeId, s.id)
+			end
+		end
+	   	
+	   	nextCursor = servers.nextPageCursor
+		task.wait()
+	until not nextCursor
+end
+
+--	Main  ----------------------------------------
+--------------------------------------------------
+
+serverHop()
