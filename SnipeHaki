@@ -1,1 +1,34 @@
+--	Services  ------------------------------------
+--------------------------------------------------
 
+local Players = game:GetService("Players")
+local RStorage = game:GetService("ReplicatedStorage")
+
+--	Variables  -----------------------------------
+--------------------------------------------------
+
+local plr = Players.LocalPlayer
+local char
+
+local remote = RStorage:WaitForChild("Remotes").CommF_
+
+local serverHop = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/RejoinKick"))()
+
+--	Functions  -----------------------------------
+--------------------------------------------------
+
+function snipe(goal)
+    local color = remote:InvokeServer("ColorsDealer", "1")
+
+    if color == goal then
+        remote:InvokeServer("ColorsDealer", "2")
+    else
+        serverHop()
+    end
+end
+
+--	Main  ----------------------------------------
+--------------------------------------------------
+
+return snipe
