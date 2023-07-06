@@ -33,7 +33,7 @@ function serverHop(queue)
 
 		for _, s in servers.data do
 			if s.playing < s.maxPlayers and s.id ~= jobId and s.ping < maxPing then
-				if queue then queue_on_teleport(game:HttpGet(queue)) end
+				if queue then queue_on_teleport(queue) end
 				
 				pcall(TpS.TeleportToPlaceInstance, TpS, placeId, s.id)
 			end
