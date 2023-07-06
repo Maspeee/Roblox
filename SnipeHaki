@@ -15,12 +15,13 @@ local serverHop = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mas
 --	Functions  -----------------------------------
 --------------------------------------------------
 
-function snipe(goal, team)
-    commF:InvokeServer("SetTeam", team)
-    local color = commF:InvokeServer("ColorsDealer", "1") print(color)
+function snipe()
+    commF:InvokeServer("SetTeam", getgenv().team)
+    local color = commF:InvokeServer("ColorsDealer", "1")
     
-    if color == goal then
+    if color == getgenv().goal then
         commF:InvokeServer("ColorsDealer", "2")
+        print("Bought: ", color)
         
     else
         serverHop("https://raw.githubusercontent.com/Maspeee/Roblox/BloxFruits/SnipeHaki")
@@ -30,4 +31,4 @@ end
 --	Main  ----------------------------------------
 --------------------------------------------------
 
-return snipe
+snipe()
