@@ -118,7 +118,7 @@ while true do
 	if not chest then break end
 	if not plr.PlayerGui.Main:FindFirstChild("ChooseTeam") then break end
 	
-	char:PivotTo(chest.CFrame)
+	char.PrimaryPart.CFrame = chest.CFrame
 	task.wait(.1)
 end
 
