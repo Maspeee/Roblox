@@ -52,6 +52,10 @@ function collect()
 		char:PivotTo(chest.CFrame)
 		task.wait(.1)
 	end
+
+	if plr.PlayerGui.Main:FindFirstChild("ChooseTeam") then
+		serverHop("https://raw.githubusercontent.com/Maspeee/Roblox/BloxFruits/Get_Chests")		--link to queue
+	end
 end
 
 --	Main  ----------------------------------------
@@ -59,7 +63,3 @@ end
 
 RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
 collect()
-
-if plr.PlayerGui.Main:FindFirstChild("ChooseTeam") then
-	serverHop("https://raw.githubusercontent.com/Maspeee/Roblox/BloxFruits/Get_Chests")		--link to queue
-end
