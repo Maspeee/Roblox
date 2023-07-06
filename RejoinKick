@@ -1,14 +1,11 @@
 --	Services  ------------------------------------
 --------------------------------------------------
 
-local Players = game:GetService("Players")
 local TpS = game:GetService("TeleportService")
 local Core = game:GetService("CoreGui")
 
 --	Variables  -----------------------------------
 --------------------------------------------------
-
-local plr = Players.LocalPlayer
 
 local placeId = game.PlaceId
 local jobId = game.JobId
@@ -16,17 +13,17 @@ local jobId = game.JobId
 --	Main  ----------------------------------------
 --------------------------------------------------
 
-function left(_plr)
-    if plr ~= _plr then return end
-    if not Core.RobloxPromptGui.promptOverlay:WaitForChild("ErrorPrompt", 5) then return end
+function onKick(obj)
+    if obj.Name ~= "ErrorPrompt" then return end
     
     local success
 
     while not success do
+        queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/RejoinKick"))
         success = pcall(TpS.TeleportToPlaceInstance, TpS, placeId, jobId)
     end
 end
 
 --------------------------------------------------
 
-Players.PlayerRemoving:Connect(left)
+Core.RobloxPromptGui.promptOverlay.ChildAdded:Connect(onKick)
