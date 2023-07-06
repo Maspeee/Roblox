@@ -2,7 +2,7 @@
 --------------------------------------------------
 
 local Players = game:GetService("Players")
-local Teleport = game:GetService("TeleportService")
+local Tps = game:GetService("TeleportService")
 local RStorage = game:GetService("ReplicatedStorage")
 local Http = game:GetService("HttpService")
 local Core = game:GetService("CoreGui")
@@ -70,50 +70,29 @@ end
 function serverHop()
 	repeat
 	   	local servers = listServers(nextCursor)
-		local success
 
 		for _, s in servers.data do
 			if s.playing < s.maxPlayers and s.id ~= jobId and s.ping < maxPing then
 				queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Blox_Fruits/main/Get_Chests"))
-				success = pcall(Teleport.TeleportToPlaceInstance, Teleport, placeId, s.id)
-
-				if success then break end
+				pcall(TpS.TeleportToPlaceInstance, TpS, placeId, s.id)
 			end
 		end
 	   	
 	   	nextCursor = servers.nextPageCursor
 		task.wait()
-	until success or not nextCursor
-
-	task.wait(5)
-	if plr then serverHop() end
+	until not nextCursor
 end
-
-function onKick(child)
-	if child.Name == "ErrorPrompt" then
-		local success
-		log("Kicked")
-
-		repeat
-			queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Blox_Fruits/main/Get_Chests"))
-			success = pcall(Teleport.TeleportToPlaceInstance, Teleport, placeId, jobId)
-		until success
-
-		log("Reconnecting")
-	end
-end
-
-
 
 --	Main	--------------------------------------
 --------------------------------------------------
 
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/RejoinKick"))()
+
 RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
-Core.RobloxPromptGui.promptOverlay.ChildAdded:Connect(onKick)
-char = plr.Character or plr.CharacterAdded:Wait()
 
 while true do
 	local chest = findNearest()
+	local char = plr.Character
 	
 	if not chest then break end
 	if not plr.PlayerGui.Main:FindFirstChild("ChooseTeam") then break end
@@ -121,10 +100,6 @@ while true do
 	char:PivotTo(chest.CFrame)
 	task.wait(.1)
 end
-
-log("Cash: " ..plr.Data.Beli.Value)
-
---------------------------------------------------
 
 if plr.PlayerGui.Main:FindFirstChild("ChooseTeam") then
 	serverHop()
