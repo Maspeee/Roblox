@@ -27,13 +27,14 @@ function listServers(cursor)
 	return ret
 end
 
-function serverHop()
+function serverHop(queue)
 	repeat
 	   	local servers = listServers(nextCursor)
 
 		for _, s in servers.data do
 			if s.playing < s.maxPlayers and s.id ~= jobId and s.ping < maxPing then
-				queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Blox_Fruits/main/Get_Chests"))
+				if queue then queue_on_teleport(game:HttpGet(queue)) end
+				
 				pcall(TpS.TeleportToPlaceInstance, TpS, placeId, s.id)
 			end
 		end
@@ -46,4 +47,4 @@ end
 --	Main  ----------------------------------------
 --------------------------------------------------
 
-serverHop()
+return serverHop
