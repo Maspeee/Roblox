@@ -27,13 +27,13 @@ function listServers(cursor)
 	return ret
 end
 
-function serverHop(queue)
+function serverHop(queueLink)
 	repeat
 	   	local servers = listServers(nextCursor)
 
 		for _, s in servers.data do
 			if s.playing < s.maxPlayers and s.id ~= jobId and s.ping < maxPing then
-				if queue then queue_on_teleport(queue) end
+				if queueLink then queue_on_teleport(game:HttpGet(queueLink)) end
 				
 				pcall(TpS.TeleportToPlaceInstance, TpS, placeId, s.id)
 			end
