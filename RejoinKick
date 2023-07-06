@@ -1,1 +1,27 @@
+--	Services  ------------------------------------
+--------------------------------------------------
 
+local Players = game:GetService("Players")
+local Teleport = game:GetService("TeleportService")
+local Core = game:GetService("CoreGui")
+
+--	Variables  -----------------------------------
+--------------------------------------------------
+
+local plr = Players.LocalPlayer
+
+local placeId = workspace.PlaceId
+local jobId = workspace.JobId
+
+--	Main  ----------------------------------------
+--------------------------------------------------
+
+function left(_plr)
+    if plr ~= _plr then return end
+
+    
+end
+
+--------------------------------------------------
+
+Players.PlayerRemoving:Connect(left)
