@@ -39,7 +39,7 @@ function findNearest()
     return nearest
 end
 
-function collect() print(getgenv().team)
+function collect()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/RejoinKick"))()
 	RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", getgenv().team)
 	
