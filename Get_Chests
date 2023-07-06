@@ -11,14 +11,9 @@ local Core = game:GetService("CoreGui")
 --------------------------------------------------
 
 local team = "Marines"
-local maxPing = 500
 
 local plr = Players.LocalPlayer
-local char, nextCursor
-
-local placeId = 7449423635 --sea 3
-local jobId = game.JobId
-local api = "https://games.roblox.com/v1/games/" ..tostring(placeId) .."/servers/Public?sortOrder=Desc&limit=100"
+local char
 
 local serverHop = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/RejoinKick"))()
