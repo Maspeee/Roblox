@@ -49,7 +49,7 @@ function serverHop(queueLink)	print("Hopping")
 	   	nextCursor = servers.nextPageCursor
 	until success or not nextCursor
 
-	task.wait(5)
+	task.wait(10)
 	serverHop(queueLink)
 end
 
