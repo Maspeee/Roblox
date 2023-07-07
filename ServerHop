@@ -32,7 +32,7 @@ function listServers(cursor)
 end
 
 function serverHop(queueLink)	print("Hopping")
-	local success, err
+	local success
 	
 	repeat
 	   	local servers = listServers(nextCursor)
@@ -41,7 +41,7 @@ function serverHop(queueLink)	print("Hopping")
 			if s.playing < (s.maxPlayers -freeSlots) and s.id ~= jobId and s.ping < maxPing then
 				if queueLink then queue_on_teleport(game:HttpGet(queueLink)) end
 				
-				success, err = pcall(TpS.TeleportToPlaceInstance, TpS, placeId, s.id)
+				success = pcall(TpS.TeleportToPlaceInstance, TpS, placeId, s.id)
 				if success then break end
 			end
 		end
@@ -49,7 +49,8 @@ function serverHop(queueLink)	print("Hopping")
 	   	nextCursor = servers.nextPageCursor
 	until success or not nextCursor
 
-	print(success, err)
+	task.wait(5)
+	serverHop(queueLink)
 end
 
 --	Main  ----------------------------------------
