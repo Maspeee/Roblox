@@ -4,10 +4,14 @@
 local TpS = game:GetService("TeleportService")
 local Http = game:GetService("HttpService")
 
---	Variables ------------------------------------
+--	Configuration  -------------------------------
 --------------------------------------------------
 
 local maxPing = 500
+local freeSlots = 2
+
+--	Variables ------------------------------------
+--------------------------------------------------
 
 local placeId = game.PlaceId
 local jobId = game.JobId
@@ -34,7 +38,7 @@ function serverHop(queueLink)	print("Hopping")
 	   	local servers = listServers(nextCursor)
 		
 		for _, s in servers.data do
-			if s.playing < (s.maxPlayers -2) and s.id ~= jobId and s.ping < maxPing then
+			if s.playing < (s.maxPlayers -freeSlots) and s.id ~= jobId and s.ping < maxPing then
 				if queueLink then queue_on_teleport(game:HttpGet(queueLink)) end
 				
 				success = pcall(TpS.TeleportToPlaceInstance, TpS, placeId, s.id)
