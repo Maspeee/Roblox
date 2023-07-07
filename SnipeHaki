@@ -16,7 +16,7 @@ local goal = "Winter Sky"
 
 local plr = Players.LocalPlayer
 local commF = RStorage:WaitForChild("Remotes").CommF_
-local ping = Instance.new("Sound")    sound.SoundId = "rbxassetid://5535652615"
+local ping = Instance.new("Sound")    ping.SoundId = "rbxassetid://5535652615"
 
 local serverHop = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
 
