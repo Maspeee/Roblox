@@ -41,7 +41,7 @@ function serverHop(queueLink)	print("Hopping")
 			if s.playing < (s.maxPlayers -freeSlots) and s.id ~= jobId and s.ping < maxPing then
 				if queueLink then queue_on_teleport(game:HttpGet(queueLink)) end
 				
-				success = pcall(TpS.TeleportToPlaceInstance, TpS, placeId, s.id)
+				success, err = pcall(TpS.TeleportToPlaceInstance, TpS, placeId, s.id) print(err)
 				if success then break end
 			end
 		end
