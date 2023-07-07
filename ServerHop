@@ -8,7 +8,7 @@ local Http = game:GetService("HttpService")
 --------------------------------------------------
 
 local maxPing = 500
-local freeSlots = 2
+local freeSlots = 0
 
 --	Variables ------------------------------------
 --------------------------------------------------
@@ -48,6 +48,9 @@ function serverHop(queueLink)	print("Hopping")
 	   	
 	   	nextCursor = servers.nextPageCursor
 	until success or not nextCursor
+
+	task.wait(5)
+	serverHop(queueLink)
 end
 
 --	Main  ----------------------------------------
