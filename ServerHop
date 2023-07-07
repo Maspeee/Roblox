@@ -16,6 +16,7 @@ local freeSlots = 0
 local placeId = game.PlaceId
 local jobId = game.JobId
 local api = "https://games.roblox.com/v1/games/" ..tostring(placeId) .."/servers/Public?sortOrder=Desc&limit=100"
+local connection
 
 --	Functions  -----------------------------------
 --------------------------------------------------
@@ -32,8 +33,9 @@ function listServers(cursor)
 end
 
 function serverHop(queueLink)	print("Hopping")
+	connection = connection or TpS.TeleportInitFailed:Connect(function() serverHop(queueLink) end)
 	local success
-	
+
 	repeat
 	   	local servers = listServers(nextCursor)
 		
@@ -48,9 +50,6 @@ function serverHop(queueLink)	print("Hopping")
 	   	
 	   	nextCursor = servers.nextPageCursor
 	until success or not nextCursor
-
-	task.wait(10)
-	serverHop(queueLink)
 end
 
 --	Main  ----------------------------------------
