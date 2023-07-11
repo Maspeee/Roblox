@@ -1702,8 +1702,9 @@ NewGuiPart152.Text = "Have fun with remotes"
 NewGuiPart152.TextWrapped = true
 return NewGuiPart1
 end
+local Core = game:GetService("CoreGui")
 local D_E_X = CreateGui()
-D_E_X.Parent = game.Players.LocalPlayer.PlayerGui
+D_E_X.Parent = Core
 spawn(function()
 	local Gui = D_E_X
 	
