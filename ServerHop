@@ -27,7 +27,7 @@ function listServers(cursor)
     local ret
 
 	repeat
-		ret = pcall(Http.JSONDecode, Http, link)
+		_, ret = pcall(Http.JSONDecode, Http, link)
 	until ret and ret.data
 	
 	return ret
