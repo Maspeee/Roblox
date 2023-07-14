@@ -26,7 +26,7 @@ function listServers(cursor)
 	local ret
 
 	repeat
-		Http:JSONDecode(link)
+		ret = Http:JSONDecode(link)
 		task.wait()
 	until ret
 	
