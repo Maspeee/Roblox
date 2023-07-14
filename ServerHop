@@ -33,7 +33,7 @@ function listServers(cursor)
 	return ret
 end
 
-function serverHop(queueLink)
+function onCall(queueLink)
 	local success
     print("Hopping")
 
@@ -59,4 +59,4 @@ end
 --	Main  ----------------------------------------
 --------------------------------------------------
 
-return serverHop
+return onCall
