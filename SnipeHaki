@@ -1,9 +1,7 @@
 --	Services  ------------------------------------
 --------------------------------------------------
 
-local Players = game:GetService("Players")
 local RStorage = game:GetService("ReplicatedStorage")
-local SoundS = game:GetService("SoundService")
 
 --	Configuration  -------------------------------
 --------------------------------------------------
@@ -14,9 +12,7 @@ local goal = "Winter Sky"
 --	Variables  -----------------------------------
 --------------------------------------------------
 
-local plr = Players.LocalPlayer
 local commF = RStorage:WaitForChild("Remotes").CommF_
-local ping = Instance.new("Sound")    ping.SoundId = "rbxassetid://5535652615"
 
 local serverHop = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
 
@@ -29,15 +25,11 @@ function snipe()
     
     if color == goal then
         commF:InvokeServer("ColorsDealer", "2")
-        SoundS:PlayLocalSound(ping)
-        print(color .." dealer in the server.")
+        print("Request for buying " ..color)
         
     else
         serverHop("https://raw.githubusercontent.com/Maspeee/Roblox/BloxFruits/SnipeHaki")
     end
-
-    ping.Ended:Wait()
-    ping:Destroy()
 end
 
 --	Main  ----------------------------------------
