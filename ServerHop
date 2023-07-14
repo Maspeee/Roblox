@@ -50,6 +50,7 @@ function onCall(queueLink)
 		end
 	   	
 	   	nextCursor = servers.nextPageCursor
+		task.wait()
 	until success or not nextCursor
 
     TpS.TeleportInitFailed:Wait()
