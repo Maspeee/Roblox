@@ -15,10 +15,11 @@ local team = "Marines"
 --	Variables  -----------------------------------
 --------------------------------------------------
 
+local rejoinKick = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/RejoinKick"))()
+local serverHop = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
+
 local plr = Players.LocalPlayer
 local char
-
-local serverHop = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
 
 --	Functions  -----------------------------------
 --------------------------------------------------
@@ -45,7 +46,7 @@ function findNearest()
 end
 
 function collect()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/RejoinKick"))()
+	rejoinKick("https://raw.githubusercontent.com/Maspeee/Roblox/BloxFruits/Get_Chests")
 	RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
 	
 	while plr.PlayerGui.Main:FindFirstChild("ChooseTeam") do
