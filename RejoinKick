@@ -24,7 +24,7 @@ function onKick(obj, queueLink)
     onKick(obj, queueLink)
 end
 
-function onCall(queueLink)
+function rejoinKickCalled(queueLink)
     Core.RobloxPromptGui.promptOverlay.ChildAdded:Connect(function(obj)
         onKick(obj, queueLink)
     end)
@@ -32,4 +32,4 @@ end
 
 --------------------------------------------------
 
-return onCall
+return rejoinKickCalled
