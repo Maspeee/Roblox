@@ -28,6 +28,7 @@ function listServers(cursor)
 
 	repeat
 		_, ret = pcall(Http.JSONDecode, Http, link)
+		task.wait()
 	until ret and ret.data
 	
 	return ret
@@ -47,10 +48,11 @@ function onCall(queueLink)
 				success = pcall(TpS.TeleportToPlaceInstance, TpS, placeId, s.id)
 				if success then break end
 			end
+
+			task.wait()
 		end
 	   	
 	   	nextCursor = servers.nextPageCursor
-		task.wait()
 	until success or not nextCursor
 
     TpS.TeleportInitFailed:Wait()
