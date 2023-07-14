@@ -22,15 +22,8 @@ local api = "https://games.roblox.com/v1/games/" ..tostring(placeId) .."/servers
 
 function listServers(cursor)
 	cursor = if cursor then "&cursor=" ..cursor else ""
-
-    local link = game:HttpGet(api ..cursor)
-    local ret
-
-	repeat
-		_, ret = pcall(Http.JSONDecode, Http, link)
-	until ret and ret.data
 	
-	return ret
+	return Http:JSONDecode(game:HttpGet(api ..cursor))
 end
 
 function onCall(queueLink)
