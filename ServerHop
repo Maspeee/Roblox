@@ -28,7 +28,7 @@ function listServers(cursor)
 	repeat
 		ret = Http:JSONDecode(link)
 		task.wait()
-	until ret
+	until ret and ret.data
 	
 	return ret
 end
