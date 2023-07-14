@@ -13,11 +13,15 @@ local jobId = game.JobId
 --	Main  ----------------------------------------
 --------------------------------------------------
 
-function onKick(obj)    print("Rejoining")
+function onKick(obj)
     if obj.Name ~= "ErrorPrompt" then return end
+    print("Rejoining")
 
     queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/RejoinKick"))
     pcall(TpS.TeleportToPlaceInstance, TpS, placeId, jobId)
+
+    TpS.TeleportInitFailed:Wait()
+    onKick(obj)
 end
 
 --------------------------------------------------
