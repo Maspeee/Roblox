@@ -27,9 +27,9 @@ function listServers(cursor)
 	return ret
 end
 
-function serverHopCalled(queueLink)		print("Hopping")
-	local maxPing = getgenv().maxPing or 500
-	local freeSlots = getgenv().freeSlots or 0
+function serverHopCalled(queueLink, maxPing, freeSlots)		print("Hopping")
+	local maxPing = maxPing or 500
+	local freeSlots = freeSlots or 0
 	local success
 	
 	repeat
@@ -51,7 +51,7 @@ function serverHopCalled(queueLink)		print("Hopping")
 	until success or not nextCursor
 	
     TpS.TeleportInitFailed:Wait()
-    serverHopCalled(queueLink)
+    serverHopCalled(queueLink, maxPing, freeSlots)
 end
 
 --	Main  ----------------------------------------
