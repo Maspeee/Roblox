@@ -53,7 +53,7 @@ function serverHopCalled(queueLink)
 	until success or not nextCursor
 
     TpS.TeleportInitFailed:Wait()
-    serverHop(queueLink)
+    serverHopCalled(queueLink)
 end
 
 --	Main  ----------------------------------------
