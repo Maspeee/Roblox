@@ -4,12 +4,6 @@
 local TpS = game:GetService("TeleportService")
 local Http = game:GetService("HttpService")
 
---	Configuration  -------------------------------
---------------------------------------------------
-
-local maxPing = 2000
-local freeSlots = 1
-
 --	Variables ------------------------------------
 --------------------------------------------------
 
@@ -34,6 +28,8 @@ function listServers(cursor)
 end
 
 function serverHopCalled(queueLink)		print("Hopping")
+	local maxPing = getgenv().maxPing or 500
+	local freeSlots = getgenv().freeSlots or 0
 	local success
 	
 	repeat
@@ -41,9 +37,9 @@ function serverHopCalled(queueLink)		print("Hopping")
 		nextCursor = servers.nextPageCursor
 		
 		for _, s in ipairs(servers.data) do
-			if s.playing +getgenv().freeSlots >= s.maxPlayers then continue end
+			if s.playing +freeSlots >= s.maxPlayers then continue end
 			if s.id == jobId then continue end
-			if s.ping >= getgenv().maxPing then continue end
+			if s.ping >= maxPing then continue end
 			
 			if queueLink then
 				queue_on_teleport(game:HttpGet(queueLink))
