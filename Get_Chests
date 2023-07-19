@@ -11,13 +11,14 @@ local Core = game:GetService("CoreGui")
 --------------------------------------------------
 
 local team = "Marines"
-local hopWithChalice = true
+local lookForChalice = false
 
 --	Variables  -----------------------------------
 --------------------------------------------------
 
 local rejoinKick = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/RejoinKick"))()
 local serverHop = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
+local link = "https://raw.githubusercontent.com/Maspeee/Roblox/BloxFruits/Get_Chests"
 
 local plr = Players.LocalPlayer
 local char
@@ -46,8 +47,8 @@ function findNearest()
     return nearest
 end
 
-function collect()
-	rejoinKick("https://raw.githubusercontent.com/Maspeee/Roblox/BloxFruits/Get_Chests")
+function getChests()
+	rejoinKick(link)
 	RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
 	
 	while plr.PlayerGui.Main:FindFirstChild("ChooseTeam") do
@@ -55,9 +56,9 @@ function collect()
 		local chest = findNearest()
 		
 		if not chest then
-			if plr.Backpack:FindFirstChild("God's Chalice") and not hopWithChalice then break end
+			if lookForChalice and plr.Backpack:FindFirstChild("God's Chalice") then break end
 			
-			serverHop("https://raw.githubusercontent.com/Maspeee/Roblox/BloxFruits/Get_Chests")
+			serverHop(link)
 			break
 		end
 		
@@ -69,4 +70,4 @@ end
 --	Main  ----------------------------------------
 --------------------------------------------------
 
-collect()
+getChests()
