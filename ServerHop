@@ -10,16 +10,13 @@ local Http = game:GetService("HttpService")
 local placeId = game.PlaceId
 local jobId = game.JobId
 local api = "https://games.roblox.com/v1/games/" ..tostring(placeId) .."/servers/Public?sortOrder=Desc&limit=100"
-
-local nextCursor = nil
+local nextCursor = ""
 
 --	Functions  -----------------------------------
 --------------------------------------------------
 
 function listServers(cursor)
-	cursor = if cursor then ("&cursor=" ..cursor) else ""
-	
-	return Http:JSONDecode(game:HttpGet(api ..cursor))
+	return Http:JSONDecode(game:HttpGet(api .."&cursor=" ..cursor))
 end
 
 function hopFuncCalled(queueLink, maxPing, freeSlots) print("Hopping")
@@ -29,25 +26,20 @@ function hopFuncCalled(queueLink, maxPing, freeSlots) print("Hopping")
 	
 	repeat
 	   	local servers = listServers(nextCursor)
-print(servers.data ~= nil)
-		if servers.data then
-			nextCursor = servers.nextPageCursor
-			
-			for _, s in ipairs(servers.data) do
-				if s.playing +freeSlots >= s.maxPlayers then continue end
-				if s.id == jobId then continue end
-				if s.ping >= maxPing then continue end
-				
-				if queueLink then
-					queue_on_teleport(game:HttpGet(queueLink))
-				end
-				
-				success = pcall(TpS.TeleportToPlaceInstance, TpS, placeId, s.id)
-				if success then break end
-			end
-		end
-		
-		task.wait()
+        nextCursor = servers.nextPageCursor
+        
+        for _, s in ipairs(servers.data) do
+            if s.playing +freeSlots >= s.maxPlayers then continue end
+            if s.id == jobId then continue end
+            if s.ping >= maxPing then continue end
+            
+            if queueLink then
+                queue_on_teleport(game:HttpGet(queueLink))
+            end
+            
+            success = pcall(TpS.TeleportToPlaceInstance, TpS, placeId, s.id)
+            if success then break end
+        end
 	until success or not nextCursor
 	
     TpS.TeleportInitFailed:Wait()
