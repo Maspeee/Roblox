@@ -7,8 +7,8 @@ local Http = game:GetService("HttpService")
 --	Configuration  -------------------------------
 --------------------------------------------------
 
-local maxPing = 1500
-local freeSlots = 0
+local maxPing = 2000
+local freeSlots = 1
 
 --	Variables ------------------------------------
 --------------------------------------------------
@@ -33,25 +33,27 @@ function listServers(cursor)
 	return ret
 end
 
-function serverHopCalled(queueLink)
+function serverHopCalled(queueLink)		print("Hopping")
 	local success
-    print("Hopping")
-
+	
 	repeat
 	   	local servers = listServers(nextCursor)
+		nextCursor = servers.nextPageCursor
 		
-		for _, s in servers.data do
-			if s.playing < (s.maxPlayers -freeSlots) and s.id ~= jobId and s.ping < maxPing then
-				if queueLink then queue_on_teleport(game:HttpGet(queueLink)) end
-				
-				success = pcall(TpS.TeleportToPlaceInstance, TpS, placeId, s.id)
-				if success then break end
+		for _, s in ipairs(servers.data) do
+			if s.playing +getgenv().freeSlots >= s.maxPlayers then continue end
+			if s.id == jobId then continue end
+			if s.ping >= getgenv().maxPing then continue end
+			
+			if queueLink then
+				queue_on_teleport(game:HttpGet(queueLink))
 			end
+			
+			success = pcall(TpS.TeleportToPlaceInstance, TpS, placeId, s.id)
+			if success then break end
 		end
-	   	
-	   	nextCursor = servers.nextPageCursor
 	until success or not nextCursor
-
+	
     TpS.TeleportInitFailed:Wait()
     serverHopCalled(queueLink)
 end
