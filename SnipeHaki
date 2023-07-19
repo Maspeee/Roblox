@@ -20,7 +20,7 @@ Notif.Parent = workspace
 --	Functions  -----------------------------------
 --------------------------------------------------
 
-function snipe(team, goal, maxPing, freeSlots)
+function snipeCalled(team, goal, maxPing, freeSlots)
     local team = team or "Marines"
     local goal = goal or "Winter Sky"
     
@@ -39,4 +39,4 @@ end
 --	Main  ----------------------------------------
 --------------------------------------------------
 
-snipe()
+return snipeCalled
