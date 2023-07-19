@@ -3,14 +3,22 @@
 
 local RStorage = game:GetService("ReplicatedStorage")
 
+--	Configuration  -------------------------------
+--------------------------------------------------
+
+local team = "Marines"
+local goal = "Winter Sky"
+
 --	Variables  -----------------------------------
 --------------------------------------------------
 
 local hopFunc = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
+local link = "https://raw.githubusercontent.com/Maspeee/Roblox/BloxFruits/SnipeHaki"
 
 local notif = Instance.new("Sound")
     notif.SoundId = "rbxassetid://261082034"
     notif.Volume = 10
+    notif.PlayOnRemove = true
     notif.Parent = workspace
 
 local commF = RStorage:WaitForChild("Remotes").CommF_
@@ -19,15 +27,15 @@ local commF = RStorage:WaitForChild("Remotes").CommF_
 --------------------------------------------------
 
 function snipeHaki()
-    commF:InvokeServer("SetTeam", getgenv().team)
+    commF:InvokeServer("SetTeam", team)
     local current = commF:InvokeServer("ColorsDealer", "1")
     
-    if current == getgenv().goal then        print("Request to buy: " ..current)
+    if current == goal then        print("Request to buy: " ..current)
         commF:InvokeServer("ColorsDealer", "2")
-        notif:Play()
+        notif:Destroy()
         
     else
-        hopFunc(getgenv().link, 2000, 0)
+        hopFunc(link, 2000, 0)
     end
 end
 
