@@ -9,6 +9,7 @@ local RStorage = game:GetService("ReplicatedStorage")
 local serverHop = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
 
 local commF = RStorage:WaitForChild("Remotes").CommF_
+local scriptLink = "https://raw.githubusercontent.com/Maspeee/Roblox/BloxFruits/SnipeHaki"
 
 local Notif = Instance.new("Sound")
 Notif.SoundId = "rbxassetid://261082034"
@@ -19,10 +20,10 @@ Notif.Parent = workspace
 --	Functions  -----------------------------------
 --------------------------------------------------
 
-function snipe()        print(getgenv().team)
-    local team = getgenv().team or "Marines"
-    local goal = getgenv().goal or "Winter Sky"
-
+function snipe(team, goal, maxPing, freeSlots)
+    local team = team or "Marines"
+    local goal = goal or "Winter Sky"
+    
     commF:InvokeServer("SetTeam", team)
     local color = commF:InvokeServer("ColorsDealer", "1")
     
@@ -31,7 +32,7 @@ function snipe()        print(getgenv().team)
         Notif:Destroy()
         
     else
-        serverHop("https://raw.githubusercontent.com/Maspeee/Roblox/BloxFruits/SnipeHaki")
+        serverHop(scriptLink, maxPing, freeSlots)
     end
 end
 
