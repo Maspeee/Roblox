@@ -51,7 +51,7 @@ print(servers.data ~= nil)
 	until success or not nextCursor
 	
     TpS.TeleportInitFailed:Wait()
-    serverHopCalled(queueLink, maxPing, freeSlots)
+    hopFuncCalled(queueLink, maxPing, freeSlots)
 end
 
 --	Main  ----------------------------------------
