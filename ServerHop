@@ -10,13 +10,15 @@ local Http = game:GetService("HttpService")
 local placeId = game.PlaceId
 local jobId = game.JobId
 local api = "https://games.roblox.com/v1/games/" ..tostring(placeId) .."/servers/Public?sortOrder=Desc&limit=100"
-local nextCursor = ""
+local nextCursor = nil
 
 --	Functions  -----------------------------------
 --------------------------------------------------
 
 function listServers(cursor)
-	return Http:JSONDecode(game:HttpGet(api .."&cursor=" ..cursor))
+	curor = if cursor then "&cursor=" ..cursor else ""
+	
+	return Http:JSONDecode(game:HttpGet(api ..cursor))
 end
 
 function hopFuncCalled(queueLink, maxPing, freeSlots) print("Hopping")
