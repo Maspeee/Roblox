@@ -10,14 +10,12 @@ local Http = game:GetService("HttpService")
 local placeId = game.PlaceId
 local jobId = game.JobId
 local api = "https://games.roblox.com/v1/games/" ..tostring(placeId) .."/servers/Public?sortOrder=Desc&limit=100"
-local nextCursor = nil
+local cursor = ""
 
 --	Functions  -----------------------------------
 --------------------------------------------------
 
-function listServers(cursor)
-	curor = if cursor then "&cursor=" ..cursor else ""
-	
+function listServers()
 	return Http:JSONDecode(game:HttpGet(api ..cursor))
 end
 
@@ -27,8 +25,8 @@ function hopFuncCalled(queueLink, maxPing, freeSlots) print("Hopping")
 	local success
 	
 	repeat
-	   	local servers = listServers(nextCursor)
-        nextCursor = servers.nextPageCursor
+	   	local servers = listServers()
+        cursor = "&cursor=" ..servers.nextPageCursor
         
         for _, s in ipairs(servers.data) do
             if s.playing +freeSlots >= s.maxPlayers then continue end
@@ -42,7 +40,7 @@ function hopFuncCalled(queueLink, maxPing, freeSlots) print("Hopping")
             success = pcall(TpS.TeleportToPlaceInstance, TpS, placeId, s.id)
             if success then break end
         end
-	until success or not nextCursor
+	until success or not cursor
 	
     TpS.TeleportInitFailed:Wait()
     hopFuncCalled(queueLink, maxPing, freeSlots)
