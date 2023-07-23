@@ -41,7 +41,9 @@ function hopFuncCalled(queueLink, maxPing, freeSlots) print("Hopping")
 			success = pcall(TpS.TeleportToPlaceInstance, TpS, placeId, s.id)
 			if success then break end
 		end
-		until success or not cursor
+
+		task.wait()
+	until success or not cursor
 	
 	TpS.TeleportInitFailed:Wait()
 	hopFuncCalled(queueLink, maxPing, freeSlots)
