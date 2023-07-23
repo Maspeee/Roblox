@@ -32,6 +32,10 @@ function hopFuncCalled(queueLink, maxPing, freeSlots) print("Hopping")
 	freeSlots = freeSlots or 0
 	local success
 	
+	if queueLink then
+		queue_on_teleport(game:HttpGet(queueLink))
+	end
+	
 	repeat
 		local servers = listServers()
 		
@@ -39,10 +43,6 @@ function hopFuncCalled(queueLink, maxPing, freeSlots) print("Hopping")
 			if s.playing +freeSlots >= s.maxPlayers then continue end
 			if s.id == jobId then continue end
 			if s.ping >= maxPing then continue end
-			
-			if queueLink then
-				queue_on_teleport(game:HttpGet(queueLink))
-			end
 			
 			success = pcall(TpS.TeleportToPlaceInstance, TpS, placeId, s.id)
 			if success then break end
