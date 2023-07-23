@@ -31,8 +31,7 @@ local notif = Instance.new("Sound")
 --------------------------------------------------
 
 function snipeFruit()
-    rejoinKick(link)
-
+    --rejoinKick(link)
     local fruit = workspace:FindFirstChild("Fruit ")
     
     if fruit then
