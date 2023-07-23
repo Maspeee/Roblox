@@ -51,15 +51,12 @@ function snipeFruit()
     if fruit then
         commF:InvokeServer("SetTeam", team)
         char = plr.Character or plr.CharacterAdded:Wait()
-
+        notif:Destroy()
         tweenChar(fruit)
         
         local name2 = string.split(fruit.Name, " ")[1]
         name2 = name2 .."-" ..name2
         commF:InvokeServer("StoreFruit", name2, fruit)
-
-        notif:Destroy()
-
     end
 
     hopFunc(link)
