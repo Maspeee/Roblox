@@ -16,7 +16,7 @@ local cursor = nil
 --------------------------------------------------
 
 function listServers()
-    cursor = if cursor then "&cursor=" ..cursor else ""
+	cursor = if cursor then "&cursor=" ..cursor else ""
 	return Http:JSONDecode(game:HttpGet(api ..cursor))
 end
 
@@ -29,10 +29,10 @@ function hopFuncCalled(queueLink, maxPing, freeSlots) print("Hopping")
 		local servers = listServers()
 		
 		if not servers.data then 
-            task.wait(1)   
-            continue
-        end
-
+			task.wait(1)   
+			continue
+		end
+	
 		for _, s in ipairs(servers.data) do
 			if s.playing +freeSlots >= s.maxPlayers then continue end
 			if s.id == jobId then continue end
@@ -45,8 +45,8 @@ function hopFuncCalled(queueLink, maxPing, freeSlots) print("Hopping")
 			success = pcall(TpS.TeleportToPlaceInstance, TpS, placeId, s.id)
 			if success then break end
 		end
-
-        cursor = servers.nextPageCursor
+	
+		cursor = servers.nextPageCursor
 	until success
 	
 	TpS.TeleportInitFailed:Wait()
