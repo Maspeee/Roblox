@@ -19,9 +19,9 @@ function listServers(cooldown) print(cooldown)
 	if cooldown then task.wait(2) end
 	
 	cursor = if cursor then "&cursor=" ..cursor else ""
-	local data = Http:JSONDecode(game:HttpGet(api ..cursor))
+	local servers = Http:JSONDecode(game:HttpGet(api ..cursor))
 	
-	return data or listServers(true)
+	return servers.data or listServers(true)
 end
 
 function hopFuncCalled(queueLink, maxPing, freeSlots) print("Hopping")
