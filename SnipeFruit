@@ -14,6 +14,7 @@ local speed = 300
 --	Variables  -----------------------------------
 --------------------------------------------------
 
+local rejoinKick = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/RejoinKick"))()
 local hopFunc = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
 local link = "https://raw.githubusercontent.com/Maspeee/Roblox/BloxFruits/SnipeFruit"
 
@@ -32,7 +33,6 @@ local notif = Instance.new("Sound")
 --------------------------------------------------
 
 function tweenChar(fruit)
-    char = plr.Character or plr.CharacterAdded:Wait()
     local dist = (char.Head.Position -fruit.Handle.Position).Magnitude
     local dt = dist /speed
 
@@ -44,16 +44,25 @@ function tweenChar(fruit)
 end
 
 function snipeFruit()
-    local fruit = workspace:FindFirstChild("Fruit ")
-    commF:InvokeServer("SetTeam", team)
+    rejoinKick(link)
 
+    local fruit = workspace:FindFirstChild("Fruit ")
+    
     if fruit then
+        commF:InvokeServer("SetTeam", team)
+        char = plr.Character or plr.CharacterAdded:Wait()
+
         tweenChar(fruit)
+        
+        local name2 = string.split(fruit.Name, " ")[1]
+        name2 = name2 .."-" ..name2
+        commF:InvokeServer("StoreFruit", name2, fruit)
+
         notif:Destroy()
 
-    else
-        hopFunc(link)
     end
+
+    hopFunc(link)
 end
 
 --	Main  ----------------------------------------
