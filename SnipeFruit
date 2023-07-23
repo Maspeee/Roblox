@@ -48,8 +48,8 @@ function snipeFruit()
     commF:InvokeServer("SetTeam", team)
 
     if fruit then
-        notif:Destroy()
         tweenChar(fruit)
+        notif:Destroy()
 
     else
         hopFunc(link)
