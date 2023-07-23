@@ -10,10 +10,15 @@ local Http = game:GetService("HttpService")
 local placeId = game.PlaceId
 local jobId = game.JobId
 local api = "https://games.roblox.com/v1/games/" ..placeId .."/servers/Public?sortOrder=Desc&limit=100"
-local cursor = ""
+local cursor = nil
 
 --	Functions  -----------------------------------
 --------------------------------------------------
+
+function listServers()
+	cursor = if cursor then "&cursor=" ..cursor else ""
+	return Http:JSONDecode(game:HttpGet(api ..cursor))
+end
 
 function hopFuncCalled(queueLink, maxPing, freeSlots) print("Hopping")
 	maxPing = maxPing or 500
@@ -21,8 +26,8 @@ function hopFuncCalled(queueLink, maxPing, freeSlots) print("Hopping")
 	local success
 	
 	repeat
-		local servers = Http:JSONDecode(game:HttpGet(api ..cursor))
-		cursor = "&cursor=" ..servers.nextPageCursor
+		local servers = listServers()
+		cursor = servers.nextPageCursor
 		
 		for _, s in ipairs(servers.data) do
 			if s.playing +freeSlots >= s.maxPlayers then continue end
