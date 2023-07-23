@@ -9,7 +9,7 @@ local Players = game:GetService("Players")
 --------------------------------------------------
 
 local team = "Marines"
-local speed = 300
+local speed = 200
 
 --	Variables  -----------------------------------
 --------------------------------------------------
