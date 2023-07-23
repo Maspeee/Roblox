@@ -21,7 +21,7 @@ function listServers(cooldown) print(cooldown)
 	cursor = if cursor then "&cursor=" ..cursor else ""
 	local servers = Http:JSONDecode(game:HttpGet(api ..cursor))
 	
-	return servers.data or listServers(true)
+	return (servers.data and servers) or listServers(true)
 end
 
 function hopFuncCalled(queueLink, maxPing, freeSlots) print("Hopping")
@@ -55,4 +55,4 @@ end
 --	Main  ----------------------------------------
 --------------------------------------------------
 
-return hopFuncCalled
+hopFuncCalled()
