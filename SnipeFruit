@@ -2,14 +2,12 @@
 --------------------------------------------------
 
 local RStorage = game:GetService("ReplicatedStorage")
-local TweenS = game:GetService("TweenService")
 local Players = game:GetService("Players")
 
 --	Configuration  -------------------------------
 --------------------------------------------------
 
 local team = "Marines"
-local speed = 200
 
 --	Variables  -----------------------------------
 --------------------------------------------------
@@ -32,17 +30,6 @@ local notif = Instance.new("Sound")
 --	Functions  -----------------------------------
 --------------------------------------------------
 
-function tweenChar(fruit)
-    local dist = (char.Head.Position -fruit.Handle.Position).Magnitude
-    local dt = dist /speed
-
-    local info = TweenInfo.new(dt)
-    local tween = TweenS:Create(char.PrimaryPart, info, {CFrame = fruit.Handle.CFrame})
-
-    tween:Play()
-    tween.Completed:Wait()
-end
-
 function snipeFruit()
     rejoinKick(link)
 
@@ -52,7 +39,11 @@ function snipeFruit()
         commF:InvokeServer("SetTeam", team)
         char = plr.Character or plr.CharacterAdded:Wait()
         notif:Destroy()
-        tweenChar(fruit)
+        
+        repeat
+            char:PivotTo(fruit.Handle.CFrame)
+            task.wait(.1)
+        until fruit.Parent == char
         
         local name2 = string.split(fruit.Name, " ")[1]
         name2 = name2 .."-" ..name2
