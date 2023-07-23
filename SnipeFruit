@@ -1,0 +1,62 @@
+--	Services  ------------------------------------
+--------------------------------------------------
+
+local RStorage = game:GetService("ReplicatedStorage")
+local TweenS = game:GetService("TweenService")
+local Players = game:GetService("Players")
+
+--	Configuration  -------------------------------
+--------------------------------------------------
+
+local team = "Marines"
+local speed = 300
+
+--	Variables  -----------------------------------
+--------------------------------------------------
+
+local hopFunc = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
+local link = ""
+
+local plr = Players.LocalPlayer
+local char
+
+local commF = RStorage:WaitForChild("Remotes").CommF_
+
+local notif = Instance.new("Sound")
+    notif.SoundId = "rbxassetid://261082034"
+    notif.Volume = 10
+    notif.PlayOnRemove = true
+    notif.Parent = workspace
+
+--	Functions  -----------------------------------
+--------------------------------------------------
+
+function tweenChar(fruit)
+    char = plr.Character or plr.CharacterAdded:Wait()
+    local dinst = (char.Head.Position -fruit.Handle.Position).Magnitude
+    local dt = disnt /speed
+
+    local info = TweenInfo.new(dt)
+    local tween = TweenS:Create(char.PrimaryPart, info, {CFrame = fruit.Handle.CFrame})
+
+    tween:Play()
+    tween.Completed:Wait()
+end
+
+function snipeFruit()
+    local fruit = workspace:FindFirstChild("Fruit ")
+
+    commF:InvokeServer("SetTeam", team)
+
+    if fruit then
+        tweenChar(fruit)
+
+    else
+        hopFunc()
+    end
+end
+
+--	Main  ----------------------------------------
+--------------------------------------------------
+
+snipeFruit()
