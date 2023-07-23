@@ -40,10 +40,10 @@ function snipeFruit()
         char = plr.Character or plr.CharacterAdded:Wait()
         notif:Destroy()
         
-        repeat
+        while fruit.Parent == workspace do
             char:PivotTo(fruit.Handle.CFrame)
             task.wait(.1)
-        until fruit.Parent ~= workspace
+        end
         
         local name2 = string.split(fruit.Name, " ")[1]
         name2 = name2 .."-" ..name2
