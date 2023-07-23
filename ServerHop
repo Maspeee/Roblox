@@ -9,7 +9,7 @@ local Http = game:GetService("HttpService")
 
 local placeId = game.PlaceId
 local jobId = game.JobId
-local api = "https://games.roblox.com/v1/games/" ..tostring(placeId) .."/servers/Public?sortOrder=Desc&limit=100"
+local api = "https://games.roblox.com/v1/games/" ..placeId .."/servers/Public?sortOrder=Desc&limit=100"
 local cursor = ""
 
 --	Functions  -----------------------------------
@@ -26,7 +26,7 @@ function hopFuncCalled(queueLink, maxPing, freeSlots) print("Hopping")
 	
 	repeat
 	   	local servers = listServers()
-        cursor = "&cursor=" ..servers.nextPageCursor
+		cursor = "&cursor=" ..servers.nextPageCursor
         
         for _, s in ipairs(servers.data) do
             if s.playing +freeSlots >= s.maxPlayers then continue end
