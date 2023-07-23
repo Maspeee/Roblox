@@ -33,8 +33,8 @@ local notif = Instance.new("Sound")
 
 function tweenChar(fruit)
     char = plr.Character or plr.CharacterAdded:Wait()
-    local dinst = (char.Head.Position -fruit.Handle.Position).Magnitude
-    local dt = disnt /speed
+    local dist = (char.Head.Position -fruit.Handle.Position).Magnitude
+    local dt = dist /speed
 
     local info = TweenInfo.new(dt)
     local tween = TweenS:Create(char.PrimaryPart, info, {CFrame = fruit.Handle.CFrame})
