@@ -43,7 +43,7 @@ function snipeFruit()
         repeat
             char:PivotTo(fruit.Handle.CFrame)
             task.wait(.1)
-        until fruit.Parent == char
+        until fruit.Parent ~= workspace
         
         local name2 = string.split(fruit.Name, " ")[1]
         name2 = name2 .."-" ..name2
