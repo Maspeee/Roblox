@@ -15,7 +15,7 @@ local speed = 300
 --------------------------------------------------
 
 local hopFunc = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
-local link = ""
+local link = "https://raw.githubusercontent.com/Maspeee/Roblox/BloxFruits/SnipeFruit"
 
 local plr = Players.LocalPlayer
 local char
@@ -45,14 +45,14 @@ end
 
 function snipeFruit()
     local fruit = workspace:FindFirstChild("Fruit ")
-
     commF:InvokeServer("SetTeam", team)
 
     if fruit then
+        notif:Destroy()
         tweenChar(fruit)
 
     else
-        hopFunc()
+        hopFunc(link)
     end
 end
 
