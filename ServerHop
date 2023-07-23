@@ -15,8 +15,11 @@ local cursor = nil
 --	Functions  -----------------------------------
 --------------------------------------------------
 
-function listServers(cooldown) print(cooldown)
-	if cooldown then task.wait(2) end
+function listServers(cooldown)
+	if cooldown then
+		print("cooldown")
+		task.wait(2)
+	end
 	
 	cursor = if cursor then "&cursor=" ..cursor else ""
 	local servers = Http:JSONDecode(game:HttpGet(api ..cursor))
@@ -55,4 +58,4 @@ end
 --	Main  ----------------------------------------
 --------------------------------------------------
 
-hopFuncCalled()
+return hopFuncCalled
