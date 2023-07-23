@@ -11,7 +11,6 @@ local placeId = game.PlaceId
 local jobId = game.JobId
 local api = "https://games.roblox.com/v1/games/" ..placeId .."/servers/Public?sortOrder=Desc&limit=100"
 local cursor = nil
-local canQueue = true
 
 --	Functions  -----------------------------------
 --------------------------------------------------
@@ -33,9 +32,8 @@ function hopFuncCalled(queueLink, maxPing, freeSlots) print("Hopping")
 	freeSlots = freeSlots or 0
 	local success
 	
-	if queueLink and canQueue then
+	if queueLink then
 		queue_on_teleport(game:HttpGet(queueLink))
-		canQueue = false
 	end
 	
 	repeat
