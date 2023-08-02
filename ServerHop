@@ -44,6 +44,7 @@ function hopFuncCalled(queueLink, maxPing, freeSlots) print("Hopping")
 			if s.id == jobId then continue end
 			if s.ping >= maxPing then continue end
 			
+			_G.isTeleporting = true
 			success = pcall(TpS.TeleportToPlaceInstance, TpS, placeId, s.id)
 			if success then break end
 		end
