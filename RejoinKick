@@ -23,12 +23,12 @@ function onKick(toQueue)
     end
 end
 
-function rejoinKickCalled(queueLink)
+function rejoinKickCalled(toQueue)
     Core.RobloxPromptGui.promptOverlay.ChildAdded:Connect(function(obj)
         if obj.Name ~= "ErrorPrompt" then return end
         if _G.teleporting then return end
         
-        onKick(queueLink)
+        onKick(toQueue)
     end)
 end
 
