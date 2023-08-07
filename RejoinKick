@@ -13,19 +13,20 @@ local jobId = game.JobId
 --	Main  ----------------------------------------
 --------------------------------------------------
 
-function onKick(queueLink)
-    if queueLink then queue_on_teleport(game:HttpGet(queueLink)) end
-    pcall(TpS.TeleportToPlaceInstance, TpS, placeId, jobId)
+function onKick(toQueue)
     print("Rejoining")
-
-    TpS.TeleportInitFailed:Wait()
-    onKick(queueLink)
+    if toQueue then queue_on_teleport(game:HttpGet(toQueue)) end
+    
+    while true do
+        TpS:TeleportToPlaceInstance(placeId, jobId)
+        TpS.TeleportInitFailed:Wait()    
+    end
 end
 
 function rejoinKickCalled(queueLink)
     Core.RobloxPromptGui.promptOverlay.ChildAdded:Connect(function(obj)
         if obj.Name ~= "ErrorPrompt" then return end
-        if _G.isTeleporting then return end
+        if _G.teleporting then return end
         
         onKick(queueLink)
     end)
