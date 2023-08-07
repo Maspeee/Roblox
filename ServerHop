@@ -34,7 +34,7 @@ function hopCalled(toQueue)
 			if s.id == jobId then continue end
 			
 			TpS:TeleportToPlaceInstance(placeId, s.id)
-			getgenv().teleporting = true
+			_G.teleporting = true
 			
 			TpS.TeleportInitFailed:Wait()
 		end
