@@ -22,7 +22,7 @@ function getList()
 end
 
 function hopCalled(toQueue)
-	print("Hopping)
+	print("Hopping")
 	if toQueue then queue_on_teleport(toQueue) end
 	
 	while true do
