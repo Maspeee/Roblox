@@ -17,27 +17,28 @@ local url = "https://games.roblox.com/v1/games/" ..placeId .."/servers/Public?so
 --------------------------------------------------
 
 function getList()
-    cursor = if cursor then "&cursor=" ..cursor else ""
-    return Http:JSONDecode(game:HttpGet(url ..cursor))
+	cursor = if cursor then "&cursor=" ..cursor else ""
+	return Http:JSONDecode(game:HttpGet(url ..cursor))
 end
 
 function hopCalled(toQueue)
+	print("Hopping)
 	if toQueue then queue_on_teleport(toQueue) end
 	
-    while true do
-        local list = getList()
-        cursor = list.nextPageCursor
-        
-        for _, s in ipairs(list.data) do
-            if s.playing >= s.maxPlayers then continue end
-            if s.id == jobId then continue end
-            
-            TpS:TeleportToPlaceInstance(placeId, s.id)
-            getgenv().teleporting = true
-            
-            TpS.TeleportInitFailed:Wait()
-        end
-    end
+	while true do
+		local list = getList()
+		cursor = list.nextPageCursor
+		
+		for _, s in ipairs(list.data) do
+			if s.playing >= s.maxPlayers then continue end
+			if s.id == jobId then continue end
+			
+			TpS:TeleportToPlaceInstance(placeId, s.id)
+			getgenv().teleporting = true
+			
+			TpS.TeleportInitFailed:Wait()
+		end
+	end
 end
 
 --	Main  ----------------------------------------
