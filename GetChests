@@ -53,9 +53,9 @@ function getChests()
 		char = plr.Character
 		local chest = findNearest()
 		
-		if not chest then			
-			if not hopChalice and not plr.Backpack:FindFirstChild("God's Chalice") then
-				serverHop(link)
+		if not chest then		
+			if not hopChalice or not plr.Backpack:FindFirstChild("God's Chalice") then
+                serverHop(link)				
 			end
 			
 			break
