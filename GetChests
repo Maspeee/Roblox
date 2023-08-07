@@ -2,24 +2,22 @@
 --------------------------------------------------
 
 local Players = game:GetService("Players")
-local Tps = game:GetService("TeleportService")
 local RStorage = game:GetService("ReplicatedStorage")
-local Http = game:GetService("HttpService")
-local Core = game:GetService("CoreGui")
 
 --	Configuration  -------------------------------
 --------------------------------------------------
 
 local team = "Marines"
-local lookForChalice = false
+local hopChalice = false
 
 --	Variables  -----------------------------------
 --------------------------------------------------
 
 local rejoinKick = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/RejoinKick"))()
 local serverHop = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
-local link = "https://raw.githubusercontent.com/Maspeee/Roblox/BloxFruits/Get_Chests"
 
+local link = "https://raw.githubusercontent.com/Maspeee/Roblox/BloxFruits/Get_Chests"
+local commF = RStorage:WaitForChild("Remotes").CommF_
 local plr = Players.LocalPlayer
 local char
 
@@ -27,44 +25,49 @@ local char
 --------------------------------------------------
 
 function getDist(p1, p2)
-    return (p1.Position -p2.Position).Magnitude
+	return (p1.Position -p2.Position).Magnitude
 end
 
 function findNearest()
 	local nearest
-
+	
 	for _, v in workspace:GetChildren() do 
-		if v.Name == "Chest3" or v.Name == "Chest2" then
-			if not nearest then
-				nearest = v
-
-			elseif getDist(char.Head, v) < getDist(char.Head, nearest) then
-				nearest = v
-			end
+		if v.Name ~= "Chest3" and v.Name ~= "Chest2" then continue end
+		
+		if not nearest then
+			nearest = v
+			
+		elseif getDist(char.Head, v) < getDist(char.Head, nearest) then
+			nearest = v
 		end
 	end
-
-    return nearest
+	
+	return nearest
 end
 
 function getChests()
 	rejoinKick(link)
-	RStorage:WaitForChild("Remotes").CommF_:InvokeServer("SetTeam", team)
-	
-	while plr.PlayerGui.Main:FindFirstChild("ChooseTeam") do
+	commF:InvokeServer("SetTeam", team)
+
+	while true do
 		char = plr.Character
 		local chest = findNearest()
 		
-		if not chest then
-			if lookForChalice and plr.Backpack:FindFirstChild("God's Chalice") then break end
+		if not chest then			
+			if not hopChalice and not plr.Backpack:FindFirstChild("God's Chalice") then
+				serverHop(link)
+			end
 			
-			serverHop(link)
 			break
 		end
 		
 		char:PivotTo(chest.CFrame)
+		keypress(0x20)
+
 		task.wait(.1)
 	end
+
+    keyrelease(0x20)
 end
 
 --	Main  ----------------------------------------
