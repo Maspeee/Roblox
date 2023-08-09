@@ -11,10 +11,12 @@ local link = "https://raw.githubusercontent.com/Maspeee/Roblox/BloxFruits/TrainH
 
 local commE = RStorage:WaitForChild("Remotes").CommE
 local commF_ = RStorage:WaitForChild("Remotes").CommF_
-local locked = false
 
 local plr = PlrS.LocalPlayer
 local char
+
+local locked = false
+local done = false
 
 function tweenChar(goal)
     local dinst = (goal -char.PrimaryPart.Position).Magnitude
@@ -30,13 +32,24 @@ function tweenChar(goal)
     char.PrimaryPart.Anchored = false
 end
 
-function lockPos(cf)
-    locked = true
+function lockPos(cf, deferred)
+    if not deferred then
+        task.spawn(lockPos, cf, true)
+        return
+    end
 
+    locked = true
     while locked do
         char:PivotTo(cf)
         task.wait()
     end
+end
+
+function teleport()
+    if done then return end
+    
+    done = true
+    serverHop(link)
 end
 
 function start()
@@ -45,10 +58,11 @@ function start()
     commE:FireServer("Ken", true)
 
     tweenChar(enemyCF.Position)
-    task.spawn(lockPos, char.PrimaryPart.CFrame)
+    lockPos(char.PrimaryPart.CFrame)
 
+    task.delay(20, teleport)
     char.Humanoid.HealthChanged:Wait()
-    serverHop(link)
+    teleport()
 end
 
 start()
