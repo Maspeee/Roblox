@@ -53,6 +53,11 @@ function teleport()
 end
 
 function start()
+    if plr.VisionRadius.Value > 4999 then
+        plr:Kick("Max level reached")
+        return
+    end
+
     commF_:InvokeServer("SetTeam", team)
     char = plr.Character
     commE:FireServer("Ken", true)
