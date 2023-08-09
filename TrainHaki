@@ -62,6 +62,7 @@ function start()
     char = plr.Character
     commE:FireServer("Ken", true)
 
+    task.wait(.5)
     if (enemyCF.Position -char.PrimaryPart.Position).Magnitude > 1000 then
         tweenChar(enemyCF.Position)
     end
