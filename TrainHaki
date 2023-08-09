@@ -62,8 +62,10 @@ function start()
     char = plr.Character
     commE:FireServer("Ken", true)
 
-    tweenChar(enemyCF.Position)
-    lockPos(char.PrimaryPart.CFrame)
+    if (enemyCF.Position -char.PrimaryPart.Position).Magnitude > 1000 then
+        tweenChar(enemyCF.Position)
+    end
+    lockPos(enemyCF)
     
     task.delay(20, teleport)
     char.Humanoid.HealthChanged:Wait()
