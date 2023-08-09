@@ -23,7 +23,7 @@ end
 
 function hopCalled(toQueue)
 	print("Hopping")
-	if toQueue then queue_on_teleport(game.HttpGet(toQueue)) end
+	if toQueue then queue_on_teleport(game:HttpGet(toQueue)) end
 	
 	while true do
 		local list = getList()
