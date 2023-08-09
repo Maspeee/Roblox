@@ -1,10 +1,19 @@
+--	Services  ------------------------------------
+--------------------------------------------------
+
 local RStorage = game:GetService("ReplicatedStorage")
 local PlrS = game:GetService("Players")
 local TweenS = game:GetService("TweenService")
 
+--	Configuration  -------------------------------
+--------------------------------------------------
+
 local team = "Marines"
 local enemyCF = CFrame.new(-1993.4, 36.9, -10682.9)
 local speed = 250
+
+--	Variables  -----------------------------------
+--------------------------------------------------
 
 local serverHop = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
 local link = "https://raw.githubusercontent.com/Maspeee/Roblox/BloxFruits/TrainHaki"
@@ -17,6 +26,9 @@ local char
 
 local locked = false
 local done = false
+
+--	Functions  -----------------------------------
+--------------------------------------------------
 
 function tweenChar(goal)
     local dinst = (goal -char.PrimaryPart.Position).Magnitude
@@ -72,5 +84,8 @@ function start()
     char.Humanoid.HealthChanged:Wait()
     teleport()
 end
+
+--	Main  ----------------------------------------
+--------------------------------------------------
 
 start()
