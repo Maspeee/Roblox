@@ -1,0 +1,50 @@
+local RStorage = game:GetService("ReplicatedStorage")
+local PlrS = game:GetService("Players")
+local TweenS = game:GetService("TweenService")
+
+local enemyCF = CFrame.new(-1993.4, 36.9, -10682.9)
+local speed = 250
+
+local serverHop = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
+local link = "https://raw.githubusercontent.com/Maspeee/Roblox/BloxFruits/TrainHaki"
+
+local ken = RStorage:WaitForChild("Remotes").CommE
+local locked = false
+
+local plr = PlrS.LocalPlayer
+local char = plr.Character or plr.CharacterAdded:Wait()
+
+function tweenChar(goal)
+    local dinst = (goal -char.PrimaryPart.Position).Magnitude
+    local t = dinst /speed
+
+    local info = TweenInfo.new(t, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
+    local prop = {CFrame = enemyCF}
+    local tween = TweenS:Create(char.PrimaryPart, info, prop)
+
+    char.PrimaryPart.Anchored = true
+    tween:Play()
+    tween.Completed:Wait()
+    char.PrimaryPart.Anchored = false
+end
+
+function lockPos(cf)
+    locked = true
+
+    while locked do
+        char:PivotTo(cf)
+        task.wait()
+    end
+end
+
+function start()
+    ken:FireServer("Ken", true)
+
+    tweenChar(enemyCF.Position)
+    task.spawn(lockPos, char.PrimaryPart.CFrame)
+
+    char.Humanoid.HealthChanged:Wait()
+    serverHop(link)
+end
+
+start()
