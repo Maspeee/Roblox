@@ -2,13 +2,15 @@ local RStorage = game:GetService("ReplicatedStorage")
 local PlrS = game:GetService("Players")
 local TweenS = game:GetService("TweenService")
 
+local team = "Marines"
 local enemyCF = CFrame.new(-1993.4, 36.9, -10682.9)
 local speed = 250
 
 local serverHop = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
 local link = "https://raw.githubusercontent.com/Maspeee/Roblox/BloxFruits/TrainHaki"
 
-local ken = RStorage:WaitForChild("Remotes").CommE
+local commE = RStorage:WaitForChild("Remotes").CommE
+local commF_ = RStorage:WaitForChild("Remotes").CommF_
 local locked = false
 
 local plr = PlrS.LocalPlayer
@@ -38,7 +40,8 @@ function lockPos(cf)
 end
 
 function start()
-    ken:FireServer("Ken", true)
+    commF_:InvokeServer("SetTeam", team)
+    commE:FireServer("Ken", true)
 
     tweenChar(enemyCF.Position)
     task.spawn(lockPos, char.PrimaryPart.CFrame)
