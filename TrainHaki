@@ -14,7 +14,7 @@ local commF_ = RStorage:WaitForChild("Remotes").CommF_
 local locked = false
 
 local plr = PlrS.LocalPlayer
-local char = plr.Character or plr.CharacterAdded:Wait()
+local char
 
 function tweenChar(goal)
     local dinst = (goal -char.PrimaryPart.Position).Magnitude
@@ -41,6 +41,7 @@ end
 
 function start()
     commF_:InvokeServer("SetTeam", team)
+    char = plr.Character
     commE:FireServer("Ken", true)
 
     tweenChar(enemyCF.Position)
