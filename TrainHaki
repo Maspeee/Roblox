@@ -48,6 +48,9 @@ function start()
     task.spawn(lockPos, char.PrimaryPart.CFrame)
 
     char.Humanoid.HealthChanged:Wait()
+    locked = false
+
+    task.spawn(lockPos, char.PrimaryPart.CFrame *CFrame.new(0, 20, 0))
     serverHop(link)
 end
 
