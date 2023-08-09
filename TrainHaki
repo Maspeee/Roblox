@@ -48,6 +48,11 @@ end
 function teleport()
     if done then return end
 
+    if plr.VisionRadius.Value > 4999 then
+        plr:Kick("Max level reached")
+        return
+    end
+
     done = true
     serverHop(link)
 end
