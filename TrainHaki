@@ -53,7 +53,7 @@ function teleport()
 end
 
 function start()
-    if plr.VisionRadius.Value > 4999 then
+    if plr:WaitForChild("VisionRadius").Value > 4999 then
         plr:Kick("Max level reached")
         return
     end
