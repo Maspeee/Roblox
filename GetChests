@@ -54,11 +54,11 @@ function collect()
 		local chest = getNear()
 		if not chest then break end
 		
+        firetouchinterest(char.PrimaryPart, chest, 0)
 		char:PivotTo(chest.CFrame)
-		firetouchinterest(char.PrimaryPart, chest, 0)
-
+        
 		task.wait(.1)
-		firetouchinterest(char.PrimaryPart, chest, 1)
+        firetouchinterest(char.PrimaryPart, chest, 1)
 	end
 
 	if not hopChalice then
