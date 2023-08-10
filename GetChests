@@ -13,8 +13,8 @@ local hopChalice = false
 --	Variables  -----------------------------------
 --------------------------------------------------
 
-local noKick = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/RejoinKick"))()
-local hop = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
+local rejoinKick = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/HopKick"))()
+local serverHop = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
 
 local link = "https://raw.githubusercontent.com/Maspeee/Roblox/BloxFruits/GetChests"
 local commF = RStorage:WaitForChild("Remotes").CommF_
@@ -46,7 +46,7 @@ function getNear()
 end
 
 function collect()
-	noKick(link)
+	rejoinKick(link)
 	commF:InvokeServer("SetTeam", team)
 
 	while true do
@@ -67,7 +67,7 @@ function collect()
 		if plr.Backpack:FindFirstChild("God's Chalice") then return end
 	end
 
-	hop(link)
+	serverHop(link)
 end
 
 --	Main  ----------------------------------------
