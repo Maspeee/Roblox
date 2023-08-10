@@ -52,7 +52,6 @@ function collect()
 	while true do
 		char = plr.Character
 		local chest = getNear()
-		
 		if not chest then break end
 		
 		char:PivotTo(chest.CFrame)
