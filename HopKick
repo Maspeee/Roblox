@@ -1,0 +1,29 @@
+--	Services  ------------------------------------
+--------------------------------------------------
+
+local TpS = game:GetService("TeleportService")
+local Core = game:GetService("CoreGui")
+
+--	Variables  -----------------------------------
+--------------------------------------------------
+
+local hop = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
+
+local placeId = game.PlaceId
+local jobId = game.JobId
+
+--	Main  ----------------------------------------
+--------------------------------------------------
+
+function hopKick(toQueue)
+    Core.RobloxPromptGui.promptOverlay.ChildAdded:Connect(function(obj)
+        if obj.Name ~= "ErrorPrompt" then return end
+        if _G.teleporting then return end
+        
+        hop(toQueue)
+    end)
+end
+
+--------------------------------------------------
+
+return hopKick
