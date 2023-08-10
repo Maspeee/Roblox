@@ -13,8 +13,8 @@ local hopChalice = false
 --	Variables  -----------------------------------
 --------------------------------------------------
 
-local rejoinKick = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/RejoinKick"))()
-local serverHop = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
+local noKick = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/RejoinKick"))()
+local hop = loadstring(game:HttpGet("https://raw.githubusercontent.com/Maspeee/Roblox/Shared/ServerHop"))()
 
 local link = "https://raw.githubusercontent.com/Maspeee/Roblox/BloxFruits/GetChests"
 local commF = RStorage:WaitForChild("Remotes").CommF_
@@ -28,7 +28,7 @@ function getDist(p1, p2)
 	return (p1.Position -p2.Position).Magnitude
 end
 
-function findNearest()
+function getNear()
 	local nearest
 	
 	for _, v in workspace:GetChildren() do 
@@ -37,7 +37,7 @@ function findNearest()
 		if not nearest then
 			nearest = v
 			
-		elseif getDist(char.Head, v) < getDist(char.Head, nearest) then
+		elseif getDist(char.PrimaryPart, v) < getDist(char.PrimaryPart, nearest) then
 			nearest = v
 		end
 	end
@@ -45,32 +45,32 @@ function findNearest()
 	return nearest
 end
 
-function getChests()
-	rejoinKick(link)
+function collect()
+	noKick(link)
 	commF:InvokeServer("SetTeam", team)
 
 	while true do
 		char = plr.Character
-		local chest = findNearest()
+		local chest = getNear()
 		
-		if not chest then		
-			if not hopChalice or not plr.Backpack:FindFirstChild("God's Chalice") then
-                serverHop(link)				
-			end
-			
-			break
-		end
+		if not chest then break end
 		
 		char:PivotTo(chest.CFrame)
-		keypress(0x20)
+		firetouchinterest(char.PrimaryPart, chest, 0)
 
 		task.wait(.1)
+		firetouchinterest(char.PrimaryPart, chest, 1)
 	end
 
-    keyrelease(0x20)
+	if not hopChalice then
+		if char:FindFirstChild("God's Chalice") then return end
+		if plr.Backpack:FindFirstChild("God's Chalice") then return end
+	end
+
+	hop(link)
 end
 
 --	Main  ----------------------------------------
 --------------------------------------------------
 
-getChests()
+collect()
